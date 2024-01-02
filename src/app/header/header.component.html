@@ -1,7 +1,11 @@
-<mat-toolbar >
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+<mat-toolbar color="primary">
+    <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>מצב משחק</button>
+      <button mat-menu-item>מצב ניהול</button>
+    </mat-menu>
 
     <span class="example-spacer"></span>
     <span>Little Linguist</span>
