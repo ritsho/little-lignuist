@@ -1,7 +1,5 @@
 .center-me {
     display: flex;
-    /* align-items: center; */
-    /* height: 50vh; */
     justify-content: center;
     margin: 20px;
 }

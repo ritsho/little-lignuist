@@ -3,12 +3,13 @@ import { LIST_OF_CATEGORIES, WordsCategory } from '../../main';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-categories-table',
   standalone: true,
-  imports: [MatTableModule, CommonModule, MatIconModule],
+  imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css'
 })
@@ -21,6 +22,10 @@ export class CategoriesTableComponent {
   }
 
   editItem() {
-    console.log("edit item - start");
+    console.log("edit item - do nothing for now.");
+  }
+
+  newCategory() {
+    console.log("add new item - do nothing for now.");
   }
 }
