@@ -7,31 +7,48 @@ export enum LanguageEnum {
   English,
 }
 
-export interface WordsCategory {
+export interface WordsCategoryInterface {
   name: string;
   id: number;
   last_change_date: Date;
   target_lang: LanguageEnum;
   origin_lang: LanguageEnum;
-  zugot: Map<string,string>;
+  zugot: Map<string, string>;
 }
 
-export const LIST_OF_CATEGORIES : WordsCategory[]  = [
-  {
-    name: "Food", id: 1, last_change_date: new Date("1/1/2024"),
-    origin_lang: LanguageEnum.English, target_lang: LanguageEnum.Hebrew,
-    zugot: new Map<string, string>([["Apple", "תפוח"], ["Orange", "תפוז"], ["Banana", "בננה"], ["Strawberry", "תות"]])
-  },
-  {
-    name: "Family", id: 2, last_change_date: new Date("1/8/2023"),
-    origin_lang: LanguageEnum.English, target_lang: LanguageEnum.Hebrew,
-    zugot: new Map<string, string>([["Father", "אבא"], ["Mother", "אמא"], ["Family", "משפחה"]])
-  },
-  {
-    name: "Animals", id: 3, last_change_date: new Date("1/5/2022"),
-    origin_lang: LanguageEnum.English, target_lang: LanguageEnum.Hebrew,
-    zugot: new Map<string, string>([["Dog", "כלב"], ["Elephant", "פיל"], ["Cat", "חתול"]])
+export class WordsCategory implements WordsCategoryInterface {
+  name: string;
+  id: number;
+  last_change_date: Date;
+  target_lang: LanguageEnum;
+  origin_lang: LanguageEnum;
+  zugot: Map<string, string>;
+
+  constructor(name: string, id: number, last_change_date: Date,
+    target_lang: LanguageEnum, origin_lang: LanguageEnum,
+    zugot: Map<string, string>) {
+
+    this.name = name;
+    this.id = id;
+    this.last_change_date = last_change_date;
+    this.target_lang = target_lang;
+    this.origin_lang = origin_lang;
+    this.zugot = zugot;
   }
+}
+
+export const LIST_OF_CATEGORIES: WordsCategory[] = [
+  new WordsCategory("Food", 1, new Date("1/1/2024"),
+    LanguageEnum.English, LanguageEnum.Hebrew,
+    new Map<string, string>([["Apple", "תפוח"], ["Orange", "תפוז"], ["Banana", "בננה"], ["Strawberry", "תות"]])),
+
+  new WordsCategory("Family", 2, new Date("1/8/2023"),
+    LanguageEnum.English, LanguageEnum.Hebrew,
+    new Map<string, string>([["Father", "אבא"], ["Mother", "אמא"], ["Family", "משפחה"]])),
+
+  new WordsCategory("Animals", 3, new Date("1/5/2022"),
+    LanguageEnum.English, LanguageEnum.Hebrew,
+    new Map<string, string>([["Dog", "כלב"], ["Elephant", "פיל"], ["Cat", "חתול"]]))
 ];
 
 bootstrapApplication(AppComponent, appConfig)
