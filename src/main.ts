@@ -16,7 +16,7 @@ export interface WordsCategory {
   zugot: Map<string,string>;
 }
 
-export const LIST_OF_CATEGORIES = [
+export const LIST_OF_CATEGORIES : WordsCategory[]  = [
   {
     name: "Food", id: 1, last_change_date: new Date("1/1/2024"),
     origin_lang: LanguageEnum.English, target_lang: LanguageEnum.Hebrew,

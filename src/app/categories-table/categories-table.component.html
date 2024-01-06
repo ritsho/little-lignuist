@@ -1,5 +1,5 @@
 <div class="center-me">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="my_data" class="mat-elevation-z8">
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -23,8 +23,12 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
-                <button class="space-me"> <mat-icon>delete</mat-icon> </button>
-                <button class="space-me"> <mat-icon>edit</mat-icon> </button>
+                <button class="space-me" (click)="deleteItem(element)"> 
+                    <mat-icon>delete</mat-icon> 
+                </button>
+                <button class="space-me" (click)="editItem()"> 
+                    <mat-icon>edit</mat-icon> 
+                </button>
             </td>
         </ng-container>
 
