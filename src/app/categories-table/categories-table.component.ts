@@ -26,6 +26,7 @@ export class CategoriesTableComponent {
 
   deleteItem(itemToRemove: WordsCategory) {
     this.mc.delete(itemToRemove.id);
+    this.myData = this.mc.getall();
   }
 
   editItem() {
