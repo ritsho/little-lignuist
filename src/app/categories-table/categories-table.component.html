@@ -13,7 +13,7 @@
             <!-- words Column -->
             <ng-container matColumnDef="words">
                 <th mat-header-cell *matHeaderCellDef> No. of words </th>
-                <td mat-cell *matCellDef="let element"> {{element.words.size}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.words.length}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -41,7 +41,7 @@
     </div>
 
     <div class="center-me">
-        <button mat-raised-button color="primary" (click)="newCategory()"> New category </button>
+        <button mat-raised-button color="primary" [routerLink]="'/newcategory'"> New category </button>
     </div>
 </div>
 

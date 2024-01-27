@@ -4,8 +4,8 @@ import { AppComponent } from './app/app.component';
 import { TranslatedWord } from './app/translated-word';
 
 export enum LanguageEnum {
-  Hebrew,
-  English,
+  Hebrew = 'Hebrew',
+  English = 'English',
 }
 
 export class WordsCategory {

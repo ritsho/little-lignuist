@@ -8,13 +8,14 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ManageCategoriesService } from '../manage-categories.service';
 import { TranslatedWord } from '../translated-word';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories-table',
   standalone: true,
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css',
-  imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule, HeaderComponent, FooterComponent]
+  imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule, HeaderComponent, FooterComponent, RouterLink]
 })
 export class CategoriesTableComponent {
   displayedColumns: string[] = ['name', 'words', 'last_change_date', 'actions'];
