@@ -8,7 +8,7 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ManageCategoriesService } from '../manage-categories.service';
 import { TranslatedWord } from '../translated-word';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories-table',
@@ -21,7 +21,7 @@ export class CategoriesTableComponent {
   displayedColumns: string[] = ['name', 'words', 'last_change_date', 'actions'];
   myData = this.mc.getall();
 
-  constructor(private mc: ManageCategoriesService) {
+  constructor(private mc: ManageCategoriesService, private router: Router) {
 
   }
 
@@ -30,8 +30,8 @@ export class CategoriesTableComponent {
     this.myData = this.mc.getall();
   }
 
-  editItem() {
-    console.log("edit item - do nothing for now.");
+  editItem(itemToEdit: WordsCategory) {
+    this.router.navigate(['edit-category/' + itemToEdit.id]);
   }
 
   newCategory() {

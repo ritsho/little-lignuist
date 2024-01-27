@@ -21,10 +21,19 @@ import { ManageCategoriesService } from '../manage-categories.service';
 })
 export class EditCategoryComponent {
 
-  categoryToEdit: WordsCategory = new WordsCategory("name", 1, new Date(), LanguageEnum.Hebrew, LanguageEnum.English, [new TranslatedWord("Test", "בדיקה")]);
+  categoryToEdit: WordsCategory = new WordsCategory("name", 0, new Date(), LanguageEnum.Hebrew, LanguageEnum.English, [new TranslatedWord("Test", "בדיקה")]);
 
   constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
-    //this.contactId = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('id');
+
+    // if we fail to get the id, we use the fallback (new category...)
+    if (id != null){
+      let idAsNumber = parseInt(id);
+      let wordsCategory = mc.get(idAsNumber);
+      if (wordsCategory != null){
+        this.categoryToEdit = wordsCategory;
+      }
+    }
   }
 
   onAddNewWord() {
@@ -38,8 +47,15 @@ export class EditCategoryComponent {
 
   save() {
     // TODO: add validation: check that this category name is NOT already exist
+
+    // if this category is NEW
+    if (this.categoryToEdit.id == 0){
+
+      // update the ID, and save
+      this.mc.add(this.categoryToEdit);
+    }
     
-    this.mc.add(this.categoryToEdit);
+    // go to home page
     this.router.navigate(['']);
   }
 }
