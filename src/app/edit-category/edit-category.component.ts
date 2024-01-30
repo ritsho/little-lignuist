@@ -46,7 +46,9 @@ export class EditCategoryComponent {
   }
 
   save() {
-    // TODO: add validation: check that this category name is NOT already exist
+    // TODO: add validations:
+    // 1. check that this category name is NOT already exist
+    // 2. (Bonus) check that there's at least ONE TranslatedWord before saving
 
     // if this category is NEW
     if (this.categoryToEdit.id == 0){

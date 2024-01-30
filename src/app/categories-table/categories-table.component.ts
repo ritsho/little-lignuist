@@ -9,6 +9,8 @@ import { FooterComponent } from "../footer/footer.component";
 import { ManageCategoriesService } from '../manage-categories.service';
 import { TranslatedWord } from '../translated-word';
 import { Router, RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-categories-table',
@@ -21,20 +23,31 @@ export class CategoriesTableComponent {
   displayedColumns: string[] = ['name', 'words', 'last_change_date', 'actions'];
   myData = this.mc.getall();
 
-  constructor(private mc: ManageCategoriesService, private router: Router) {
+  constructor(private mc: ManageCategoriesService, private router: Router, private dialog: MatDialog) {
 
   }
 
-  deleteItem(itemToRemove: WordsCategory) {
-    this.mc.delete(itemToRemove.id);
-    this.myData = this.mc.getall();
+  deleteItem(itemToRemove: WordsCategory): void {
+    const deleteDialog = this.dialog.open(DeleteDialogComponent, {
+      data: { categoryName: itemToRemove.name },
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result == true) {
+        // DELETE
+        this.mc.delete(itemToRemove.id);
+
+        // Refresh the table (UI)
+        this.myData = this.mc.getall();
+      }
+    });
   }
 
-  editItem(itemToEdit: WordsCategory) {
+  editItem(itemToEdit: WordsCategory): void {
     this.router.navigate(['edit-category/' + itemToEdit.id]);
   }
 
-  newCategory() {
+  newCategory(): void {
     console.log("adding test item");
     let newItem = new WordsCategory("test", this.myData.length + 1,
       new Date(), LanguageEnum.English, LanguageEnum.Hebrew,
