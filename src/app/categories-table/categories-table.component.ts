@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { LanguageEnum, WordsCategory } from '../../main';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,20 +11,27 @@ import { TranslatedWord } from '../translated-word';
 import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 
 @Component({
   selector: 'app-categories-table',
   standalone: true,
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css',
-  imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule, HeaderComponent, FooterComponent, RouterLink]
+  imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule, HeaderComponent, FooterComponent, RouterLink, MatSortModule]
 })
-export class CategoriesTableComponent {
+export class CategoriesTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'words', 'last_change_date', 'actions'];
-  myData = this.mc.getall();
+  myData = new MatTableDataSource(this.mc.getall());
 
   constructor(private mc: ManageCategoriesService, private router: Router, private dialog: MatDialog) {
+    this.sort = new MatSort();
+  }
 
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.myData.sort = this.sort;
   }
 
   deleteItem(itemToRemove: WordsCategory): void {
@@ -34,11 +41,8 @@ export class CategoriesTableComponent {
 
     deleteDialog.afterClosed().subscribe(result => {
       if (result == true) {
-        // DELETE
         this.mc.delete(itemToRemove.id);
-
-        // Refresh the table (UI)
-        this.myData = this.mc.getall();
+        this.refreshData();
       }
     });
   }
@@ -49,11 +53,15 @@ export class CategoriesTableComponent {
 
   newCategory(): void {
     console.log("adding test item");
-    let newItem = new WordsCategory("test", this.myData.length + 1,
+    let newItem = new WordsCategory("test", this.myData.data.length + 1,
       new Date(), LanguageEnum.English, LanguageEnum.Hebrew,
       [new TranslatedWord("Test", "בדיקה")]);
 
     this.mc.add(newItem);
-    this.myData = this.mc.getall();
+    this.refreshData();
+  }
+
+  refreshData(){
+    this.myData = new MatTableDataSource(this.mc.getall());
   }
 }

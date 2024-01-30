@@ -2,23 +2,23 @@
 
 <div>
     <div class="center-me">
-        <table mat-table [dataSource]="myData" class="mat-elevation-z8">
+        <table mat-table [dataSource]="myData" class="mat-elevation-z8" matSort >
 
             <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Category Name </th>
+            <ng-container matColumnDef="name" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Category Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
 
             <!-- words Column -->
-            <ng-container matColumnDef="words">
-                <th mat-header-cell *matHeaderCellDef> No. of words </th>
+            <ng-container matColumnDef="words" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of words </th>
                 <td mat-cell *matCellDef="let element"> {{element.words.length}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="last_change_date">
-                <th mat-header-cell *matHeaderCellDef> Last Edit Date </th>
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Last Edit Date </th>
                 <td mat-cell *matCellDef="let element"> {{element.last_change_date | date: 'shortDate' }} </td>
             </ng-container>
 
