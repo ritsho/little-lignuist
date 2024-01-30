@@ -11,8 +11,10 @@
 .my-label{
     display: inline-block;
     min-width: 130px;
+    text-align: center;
 }
 
 .my-words-label {
+    text-align: center;
     margin: auto auto 30px auto;
 }

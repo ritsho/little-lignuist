@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<form class="center-container">
+<form class="center-container" #myForm="ngForm">
     <div>
         <label class="my-label">Category Name:</label>
         <mat-form-field>
@@ -25,20 +25,20 @@
     <div class="wordsMargin">
         <label for="words" class="my-label my-words-label">Words:</label>
         <button (click)="onAddNewWord()" mat-raised-button> + Add new word</button>
-        <div *ngFor="let word of categoryToEdit.words" >
+        <div *ngFor="let word of categoryToEdit.words">
             <label class="my-label">Origin</label>
             <mat-form-field>
-                <input matInput [(ngModel)]="word.origin" name="origin{{word.origin}}" maxlength="50" minlength="1" required
-                    pattern="^[A-Za-z]+$" #originWord="ngModel">
+                <input matInput [(ngModel)]="word.origin" name="origin{{word.origin}}" maxlength="50" minlength="1"
+                    required pattern="^[A-Za-z]+$" #originWord="ngModel">
                 <mat-error *ngIf="originWord.invalid">
                     Word must be in English letters only
                 </mat-error>
             </mat-form-field>
 
-            <label>Target</label>
+            <label class="my-label">Target</label>
             <mat-form-field>
-                <input matInput [(ngModel)]="word.target" name="target{{word.target}}" maxlength="50" minlength="1" required
-                pattern="^[א-ת]+$" #targetWord="ngModel">
+                <input matInput [(ngModel)]="word.target" name="target{{word.target}}" maxlength="50" minlength="1"
+                    required pattern="^[א-ת]+$" #targetWord="ngModel">
                 <mat-error *ngIf="targetWord.invalid">
                     Word must be in Hebrew letters only
                 </mat-error>
@@ -50,7 +50,8 @@
         </div>
     </div>
 
-    <button type="submit" mat-raised-button color="primary" (click)="save()">Save</button>
+    <button type="submit" mat-raised-button color="primary" (click)="save()"
+        [disabled]="myForm.invalid || categoryToEdit.words.length === 0">Save</button>
 </form>
 
 <app-footer></app-footer>

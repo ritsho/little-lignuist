@@ -30,10 +30,10 @@ export class EditCategoryComponent {
     let id = this.route.snapshot.paramMap.get('id');
 
     // if we fail to get the id, we use the fallback (new category...)
-    if (id != null){
+    if (id != null) {
       let idAsNumber = parseInt(id);
       let wordsCategory = mc.get(idAsNumber);
-      if (wordsCategory != null){
+      if (wordsCategory != null) {
         this.categoryToEdit = wordsCategory;
       }
     }
@@ -49,23 +49,20 @@ export class EditCategoryComponent {
   }
 
   save() {
-    // TODO: add validations:
-    // 1. check that this category name is NOT already exist
     if (this.categoryToEdit.name == "") {
       alert("Error - category must have a name");
       return;
     }
 
-    // check that there's at least ONE TranslatedWord before saving
-    if (this.categoryToEdit.words.length == 0 ||
-      this.categoryToEdit.words.find(item => item.origin.trim() === "") ||
-      this.categoryToEdit.words.find(item => item.target.trim() === "")) {
-      alert("Error - must have at least one valid pair, and all pairs should be filled");
-      return;
-    }
-
     // if this category is NEW
     if (this.categoryToEdit.id == 0) {
+
+      // check that this category name is NOT already exist
+      let existingCategory = this.mc.getall().find(c => c.name == this.categoryToEdit.name);
+      if (existingCategory !== undefined) {
+        alert("this category name already exist");
+        return;
+      }
 
       // update the ID, and save
       this.mc.add(this.categoryToEdit);
