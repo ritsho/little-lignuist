@@ -2,8 +2,17 @@
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
-    margin: 30px;
+    margin: 15px;
 }
 .wordsMargin{
-    margin: 20px;
+    margin: 15px;
+}
+
+.my-label{
+    display: inline-block;
+    min-width: 130px;
+}
+
+.my-words-label {
+    margin: auto auto 30px auto;
 }

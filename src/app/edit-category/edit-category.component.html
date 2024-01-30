@@ -2,20 +2,20 @@
 
 <form class="center-container">
     <div>
-        <label>Category Name:</label>
+        <label class="my-label">Category Name:</label>
         <mat-form-field>
             <input matInput [(ngModel)]="categoryToEdit.name" name="categoryName" maxlength="50" minlength="1" required>
         </mat-form-field>
     </div>
     <div>
-        <label for="sourceLang">Source Language:</label>
+        <label for="sourceLang" class="my-label">Source Language:</label>
         <mat-form-field>
             <input matInput [(ngModel)]="categoryToEdit.origin_lang" name="originLang" maxlength="50" minlength="1"
                 required disabled="true">
         </mat-form-field>
     </div>
     <div>
-        <label for="targetLang">Target Language:</label>
+        <span for="targetLang" class="my-label">Target Language:</span>
         <mat-form-field>
             <input matInput [(ngModel)]="categoryToEdit.target_lang" name="targetLang" maxlength="50" minlength="1"
                 required disabled="true">
@@ -23,10 +23,10 @@
     </div>
 
     <div class="wordsMargin">
-        <label for="words">Words:</label>
-        <button (click)="onAddNewWord()"> + Add new word</button>
-        <div *ngFor="let word of categoryToEdit.words">
-            <label>Origin</label>
+        <label for="words" class="my-label my-words-label">Words:</label>
+        <button (click)="onAddNewWord()" mat-raised-button> + Add new word</button>
+        <div *ngFor="let word of categoryToEdit.words" >
+            <label class="my-label">Origin</label>
             <mat-form-field>
                 <input matInput [(ngModel)]="word.origin" name="origin{{word.origin}}" maxlength="50" minlength="1" required
                     pattern="^[A-Za-z]+$" #originWord="ngModel">
@@ -44,7 +44,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <button class="space-me" (click)="deleteItem(word)">
+            <button class="space-me" (click)="deleteItem(word)" mat-button>
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
