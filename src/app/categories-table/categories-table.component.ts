@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { LanguageEnum, WordsCategory } from '../../main';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,6 +11,8 @@ import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import { WordsCategory } from '../shared/WordsCategory';
+import { LanguageEnum } from '../shared/LanguageEnum';
 
 @Component({
   selector: 'app-categories-table',
@@ -21,7 +22,7 @@ import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
   imports: [MatTableModule, CommonModule, MatIconModule, MatButtonModule, HeaderComponent, FooterComponent, RouterLink, MatSortModule]
 })
 export class CategoriesTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'words', 'last_change_date', 'actions'];
+  displayedColumns: string[] = ['name', 'words', 'lastChangeDate', 'actions'];
   myData = new MatTableDataSource(this.mc.getall());
 
   constructor(private mc: ManageCategoriesService, private router: Router, private dialog: MatDialog) {
@@ -54,7 +55,7 @@ export class CategoriesTableComponent implements AfterViewInit {
   newCategory(): void {
     console.log("adding test item");
     let newItem = new WordsCategory("test", this.myData.data.length + 1,
-      new Date(), LanguageEnum.English, LanguageEnum.Hebrew,
+      LanguageEnum.English, LanguageEnum.Hebrew,
       [new TranslatedWord("Test", "בדיקה")]);
 
     this.mc.add(newItem);

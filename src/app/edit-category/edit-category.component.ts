@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { FormsModule } from '@angular/forms';
-import { LanguageEnum, WordsCategory } from '../../main';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatedWord } from '../translated-word';
 import { CommonModule } from '@angular/common';
@@ -11,7 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ManageCategoriesService } from '../manage-categories.service';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { WordsCategory } from '../shared/WordsCategory';
+import { LanguageEnum } from '../shared/LanguageEnum';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 })
 export class EditCategoryComponent {
 
-  categoryToEdit: WordsCategory = new WordsCategory("name", 0, new Date(), LanguageEnum.Hebrew, LanguageEnum.English, [new TranslatedWord("Test", "בדיקה")]);
+  categoryToEdit: WordsCategory = new WordsCategory("name", 0, LanguageEnum.Hebrew, LanguageEnum.English, [new TranslatedWord("Test", "בדיקה")]);
 
   constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
     let id = this.route.snapshot.paramMap.get('id');
