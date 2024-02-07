@@ -23,7 +23,7 @@ import { LanguageEnum } from '../shared/LanguageEnum';
 })
 export class CategoriesTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'words', 'lastChangeDate', 'actions'];
-  myData = new MatTableDataSource(this.mc.getall());
+  myData = new MatTableDataSource(this.mc.list());
 
   constructor(private mc: ManageCategoriesService, private router: Router, private dialog: MatDialog) {
     this.sort = new MatSort();
@@ -56,13 +56,13 @@ export class CategoriesTableComponent implements AfterViewInit {
     console.log("adding test item");
     let newItem = new WordsCategory("test", this.myData.data.length + 1,
       LanguageEnum.English, LanguageEnum.Hebrew,
-      [new TranslatedWord("Test", "בדיקה")]);
+      []);
 
     this.mc.add(newItem);
     this.refreshData();
   }
 
   refreshData(){
-    this.myData = new MatTableDataSource(this.mc.getall());
+    this.myData = new MatTableDataSource(this.mc.list());
   }
 }

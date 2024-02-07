@@ -8,44 +8,72 @@ import { LanguageEnum } from './shared/LanguageEnum';
 })
 export class ManageCategoriesService {
 
-  constructor() { }
-
-  allCategories: Map<number, WordsCategory> = new Map([
-    [1, new WordsCategory("Food", 1, 
-          LanguageEnum.English, LanguageEnum.Hebrew,
-      [new TranslatedWord("Apple", "תפוח"), new TranslatedWord("Orange", "תפוז"), new TranslatedWord("Banana", "בננה"), new TranslatedWord("Strawberry", "תות")])],
-
-    [2, new WordsCategory("Family", 2,
-      LanguageEnum.English, LanguageEnum.Hebrew,
-      [new TranslatedWord("Father", "אבא"), new TranslatedWord("Mother", "אמא"), new TranslatedWord("Family", "משפחה")])],
-
-    [3, new WordsCategory("Animals", 3,
-      LanguageEnum.English, LanguageEnum.Hebrew,
-      [new TranslatedWord("Dog", "כלב"), new TranslatedWord("Elephant", "פיל"), new TranslatedWord("Cat", "חתול")])]
-  ]);
+  getNextId(): number {
+    let nextId = 1;
+    let nextIdFromStorage = localStorage.getItem("nextId");
+    if (nextIdFromStorage != null) {
+      nextId = parseInt(nextIdFromStorage);
+    }
+    return nextId;
+  }
 
   add(category: WordsCategory) {
-    category.id = this.allCategories.size + 1;
-    this.allCategories.set(category.id, category);
+    let nextId = this.getNextId();
+
+    // save word category
+    category.id = nextId;
+    localStorage.setItem(category.id.toString(), JSON.stringify(category));
+
+    // save the nextID value
+    nextId++;
+    localStorage.setItem("nextId", nextId.toString())
   }
 
   delete(id: number) {
-    if (this.allCategories.has(id)) {
-      this.allCategories.delete(id);
+    if (localStorage.getItem(id.toString()) != null) {
+      localStorage.removeItem(id.toString())
+    }
+    else {
+      throw new Error("delete() id " + id.toString() + " not found in localStorage");
     }
   }
 
   update(category: WordsCategory) {
-    category.lastChangeDate = new Date();
-    // TODO? update in map
+    if (localStorage.getItem(category.id.toString()) != null) {
+      category.lastChangeDate = new Date();
+      localStorage.setItem(category.id.toString(), JSON.stringify(category));
+      console.log(category);
+      console.log(JSON.stringify(category));
+    }
+    else {
+      throw new Error("update() id " + category.id.toString() + " not found in localStorage");
+    }
   }
 
   get(id: number) {
-    return this.allCategories.get(id);
+    let category = localStorage.getItem(id.toString())
+    if (category != null) {
+      return JSON.parse(category);
+    }
+    throw new Error("get() id " + id.toString() + " not found in localStorage");
   }
-  
-  getall() {
-    return Array.from(this.allCategories.values());
+
+  list() {
+    let result = [];
+    let lastValidNumber = this.getNextId();
+
+    for (let index = 0; index < lastValidNumber; index++) {
+      try {
+        let category = this.get(index);
+        if (category != null) {
+          result.push(category);
+        }
+      } catch (error) {
+        console.log("list() error: " + error)
+      }
+    }
+
+    return result;
   }
 }
 

@@ -25,7 +25,7 @@ import { LanguageEnum } from '../shared/LanguageEnum';
 })
 export class EditCategoryComponent {
 
-  categoryToEdit: WordsCategory = new WordsCategory("name", 0, LanguageEnum.Hebrew, LanguageEnum.English, [new TranslatedWord("Test", "בדיקה")]);
+  categoryToEdit: WordsCategory = new WordsCategory("name", 0, LanguageEnum.Hebrew, LanguageEnum.English, []);
 
   constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
     let id = this.route.snapshot.paramMap.get('id');
@@ -59,7 +59,7 @@ export class EditCategoryComponent {
     if (this.categoryToEdit.id == 0) {
 
       // check that this category name is NOT already exist
-      let existingCategory = this.mc.getall().find(c => c.name == this.categoryToEdit.name);
+      let existingCategory = this.mc.list().find(c => c.name == this.categoryToEdit.name);
       if (existingCategory !== undefined) {
         alert("this category name already exist");
         return;
@@ -67,6 +67,10 @@ export class EditCategoryComponent {
 
       // update the ID, and save
       this.mc.add(this.categoryToEdit);
+    }
+    // if it's an EXISTING cateogry
+    else {
+      this.mc.update(this.categoryToEdit);
     }
 
     // go to home page
