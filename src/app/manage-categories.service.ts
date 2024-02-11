@@ -58,7 +58,7 @@ export class ManageCategoriesService {
     throw new Error("get() id " + id.toString() + " not found in localStorage");
   }
 
-  list() {
+  list() : WordsCategory[] {
     let result = [];
     let lastValidNumber = this.getNextId();
 

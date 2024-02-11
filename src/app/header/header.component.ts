@@ -3,6 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  
+  constructor(private router: Router){
 
+  }
 
+  navigateToGameMode() {
+    this.router.navigate(['newgame']);
+  }
 }

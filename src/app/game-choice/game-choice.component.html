@@ -1,0 +1,12 @@
+<app-header></app-header>
+
+<div>
+    <h1>Let's Play</h1>
+    <h2>Choose Category</h2>
+    <select #selectedWordsCategory>
+        <option *ngFor="let woca of wordCategories" value="{{woca.id}}">{{woca.name}}</option>
+    </select>
+    <button (click)="onPlayButton(selectedWordsCategory.value)">Play</button>
+</div>
+
+<app-footer></app-footer>
