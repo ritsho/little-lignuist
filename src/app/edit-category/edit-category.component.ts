@@ -30,13 +30,17 @@ export class EditCategoryComponent {
   constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
     let id = this.route.snapshot.paramMap.get('id');
 
-    // if we fail to get the id, we use the fallback (new category...)
-    if (id != null) {
-      let idAsNumber = parseInt(id);
-      let wordsCategory = mc.get(idAsNumber);
-      if (wordsCategory != null) {
-        this.categoryToEdit = wordsCategory;
+    try {
+      // if we fail to get the id, we use the fallback (new category...)
+      if (id != null) {
+        let idAsNumber = parseInt(id);
+        let wordsCategory = mc.get(idAsNumber);
+        if (wordsCategory != null) {
+          this.categoryToEdit = wordsCategory;
+        }
       }
+    } catch (error) {
+      console.log(`error while getting details to edit id: ${id}`)
     }
   }
 
@@ -70,7 +74,11 @@ export class EditCategoryComponent {
     }
     // if it's an EXISTING cateogry
     else {
-      this.mc.update(this.categoryToEdit);
+      try {
+        this.mc.update(this.categoryToEdit);
+      } catch (error) {
+        console.log(`error while trying to update id: ${this.categoryToEdit.id}`);
+      }
     }
 
     // go to home page

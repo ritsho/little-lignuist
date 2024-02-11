@@ -41,10 +41,15 @@ export class CategoriesTableComponent implements AfterViewInit {
     });
 
     deleteDialog.afterClosed().subscribe(result => {
-      if (result == true) {
-        this.mc.delete(itemToRemove.id);
-        this.refreshData();
+      try {
+        if (result == true) {
+          this.mc.delete(itemToRemove.id);
+          this.refreshData();
+        }  
+      } catch (error) {
+        console.log(`error while deleting: ${error}`)
       }
+      
     });
   }
 
