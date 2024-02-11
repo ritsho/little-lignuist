@@ -1,23 +1,29 @@
 <app-header></app-header>
 
 <div class="container">
-    <h1>Translate - {{wordsCategory.name}}</h1>
+
+    <mat-label>Translate - {{wordsCategory.name}} </mat-label>
+
     <div>
-        <span>ID:</span>
+        <mat-label>ID:</mat-label>
         <input value="{{wordsCategory.id}}" disabled>
     </div>
 
-    <div *ngFor="let translateWord of wordsCategory.words">
-        <span>Origin:</span>
-        <span>{{translateWord.origin}}</span>
 
-        <span>Target:</span>
-        <input>
+    <div *ngFor="let gameWord of gameWords" class="linefix">
+        <span class="spaceorigin">
+            <span>Origin:</span>
+            <span>{{gameWord.origin}}</span>
+        </span>
+        <span class="spacetarget">
+            <span>Target:</span>
+            <input type="text" [(ngModel)]="gameWord.userinput">
+            <mat-icon>{{ gameWord.isCorrect ? 'check' : 'cancel' }}</mat-icon>
+        </span>
     </div>
 
 
     <button type="button" (click)="onCheck()">Check</button>
     <button type="button" (click)="onShowTranslate()">Translate</button>
-
 </div>
 <app-footer></app-footer>

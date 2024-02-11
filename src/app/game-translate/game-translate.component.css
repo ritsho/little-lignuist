@@ -5,3 +5,14 @@
     justify-content: center;
     height: 70vh; 
 }
+.spaceorigin {
+    margin: 50px;
+   
+}
+.spacetarget {
+    margin: 50px;
+}
+.linefix{
+    line-height: 50px;
+
+}
