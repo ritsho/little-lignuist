@@ -1,12 +1,14 @@
 <app-header></app-header>
 
-<div>
+<div class="container">
     <h1>Let's Play</h1>
-    <h2>Choose Category</h2>
-    <select #selectedWordsCategory>
-        <option *ngFor="let woca of wordCategories" value="{{woca.id}}">{{woca.name}}</option>
-    </select>
-    <button (click)="onPlayButton(selectedWordsCategory.value)">Play</button>
+    <mat-form-field>
+        <mat-label>Choose Category</mat-label>
+        <mat-select #selectedWordsCategory matNativeControl>
+            <mat-option *ngFor="let woca of wordCategories" value="{{woca.id}}">{{woca.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onPlayButton(selectedWordsCategory.value)">Play</button>
 </div>
 
 <app-footer></app-footer>

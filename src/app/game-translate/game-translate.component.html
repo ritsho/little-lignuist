@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<div class="container">
+    <h1>Translate - {{wordsCategory.name}}</h1>
+    <div>
+        <span>ID:</span>
+        <input value="{{wordsCategory.id}}" disabled>
+    </div>
+
+    <div *ngFor="let translateWord of wordsCategory.words">
+        <span>Origin:</span>
+        <span>{{translateWord.origin}}</span>
+
+        <span>Target:</span>
+        <input>
+    </div>
+
+
+    <button type="button" (click)="onCheck()">Check</button>
+    <button type="button" (click)="onShowTranslate()">Translate</button>
+
+</div>
+<app-footer></app-footer>

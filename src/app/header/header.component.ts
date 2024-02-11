@@ -13,12 +13,14 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  
-  constructor(private router: Router){
 
+  constructor(private router: Router) {
   }
 
   navigateToGameMode() {
-    this.router.navigate(['newgame']);
+    this.router.navigate(['gamechoice']);
+  }
+  navigateToAdminMode() {
+    this.router.navigate(['']);
   }
 }
