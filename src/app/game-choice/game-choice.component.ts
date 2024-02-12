@@ -26,10 +26,12 @@ export class GameChoiceComponent implements OnInit {
   }
 
   onPlayButton(wordsCategoryId: string) {
-    console.log(wordsCategoryId);
-
-    // Navigate to new game with selected category
-    this.router.navigate(['newgame/' + wordsCategoryId]);
+    if (wordsCategoryId == undefined) {
+      alert("please choose category");
+    } else {
+      // Navigate to new game with selected category
+      this.router.navigate(['newgame/' + wordsCategoryId]);
+    }
   }
 
   ngOnInit(): void {
