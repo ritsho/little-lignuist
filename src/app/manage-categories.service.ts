@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslatedWord } from './translated-word';
-import { WordsCategory } from './shared/WordsCategory';
-import { LanguageEnum } from './shared/LanguageEnum';
+import { WordsCategory } from './shared/words-category';
 
 @Injectable({
   providedIn: 'root'

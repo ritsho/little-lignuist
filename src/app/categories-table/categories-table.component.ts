@@ -6,13 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ManageCategoriesService } from '../manage-categories.service';
-import { TranslatedWord } from '../translated-word';
 import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
-import { WordsCategory } from '../shared/WordsCategory';
-import { LanguageEnum } from '../shared/LanguageEnum';
+import { WordsCategory } from '../shared/words-category';
+import { LanguageEnum } from '../shared/language-enum';
 
 @Component({
   selector: 'app-categories-table',

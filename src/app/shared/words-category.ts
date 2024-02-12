@@ -1,5 +1,5 @@
-import { TranslatedWord } from "../translated-word";
-import { LanguageEnum } from "./LanguageEnum";
+import { TranslatedWord } from "./translated-word";
+import { LanguageEnum } from "./language-enum";
 
 export class WordsCategory {
     name: string;

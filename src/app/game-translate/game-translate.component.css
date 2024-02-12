@@ -25,7 +25,7 @@
     width: 350px;
 }
 
-.buttons-container button {
+.buttons-container * {
     transform: scale(1.35);
 }
 

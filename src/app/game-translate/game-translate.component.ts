@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
-import { WordsCategory } from '../shared/WordsCategory';
+import { WordsCategory } from '../shared/words-category';
 import { ManageCategoriesService } from '../manage-categories.service';
 import { NgFor, CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -10,12 +10,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import { GameWords } from '../shared/GameWords';
+import { GameWords } from '../shared/game-words';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @Component({
   selector: 'app-game-translate',
@@ -24,7 +26,7 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './game-translate.component.css',
   imports: [FooterComponent, HeaderComponent, NgFor, CommonModule, MatButtonModule, MatInputModule,
     MatSelectModule, MatFormFieldModule, MatOptionModule, FormsModule, MatIconModule,
-    MatDividerModule, MatListModule, MatTableModule]
+    MatDividerModule, MatListModule, MatTableModule, MatSlideToggleModule]
 })
 export class GameTranslateComponent implements OnInit {
   wordsCategory!: WordsCategory;
@@ -32,6 +34,7 @@ export class GameTranslateComponent implements OnInit {
   displayedColumns: string[] = ['origin-col', 'userinput-col', 'is-correct-col'];
   isCheckButtonWasClicked: boolean = false;
   checkMessage: string = '';
+  isShowTranslation: boolean = false;
 
   constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
 
@@ -50,9 +53,6 @@ export class GameTranslateComponent implements OnInit {
   }
 
 
-  onShowTranslate() {
-
-  }
   onCheck() {
     // it will show the emoji 
     this.isCheckButtonWasClicked = true;

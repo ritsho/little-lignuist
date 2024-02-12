@@ -3,7 +3,7 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslatedWord } from '../translated-word';
+import { TranslatedWord } from '../shared/translated-word';
 import { CommonModule } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,8 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ManageCategoriesService } from '../manage-categories.service';
 import { MatButtonModule } from '@angular/material/button';
-import { WordsCategory } from '../shared/WordsCategory';
-import { LanguageEnum } from '../shared/LanguageEnum';
+import { WordsCategory } from '../shared/words-category';
+import { LanguageEnum } from '../shared/language-enum';
 
 
 @Component({
