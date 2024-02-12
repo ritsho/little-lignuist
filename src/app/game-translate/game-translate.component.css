@@ -28,3 +28,7 @@
 .buttons-container button {
     transform: scale(1.35);
 }
+
+.hide-me{
+    visibility: hidden;
+}

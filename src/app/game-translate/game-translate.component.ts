@@ -29,7 +29,8 @@ import { MatTableModule } from '@angular/material/table';
 export class GameTranslateComponent implements OnInit {
   wordsCategory!: WordsCategory;
   gameWords: GameWords[] = [];
-  displayedColumns = ['origin-col', 'userinput-col', 'is-correct-col' ];
+  displayedColumns = ['origin-col', 'userinput-col', 'is-correct-col'];
+  isCheckButtonWasClicked = false;
 
   constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
 
@@ -60,5 +61,6 @@ export class GameTranslateComponent implements OnInit {
         item.isCorrect = false;
       }
     });
+    this.isCheckButtonWasClicked = true;
   }
 }
