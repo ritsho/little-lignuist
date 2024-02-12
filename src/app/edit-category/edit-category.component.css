@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: calc(100vh - 70px - 70px);
     overflow-y: auto;
 }
 
+.main-category-name{
+    margin-top: 80px;
+}
 .wordsMargin{
     margin: 15px;
 }
