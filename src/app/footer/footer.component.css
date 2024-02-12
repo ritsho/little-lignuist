@@ -2,7 +2,7 @@
     flex: 1 1 auto;
 }
 
-.bottom-component {
+mat-toolbar {
     position: fixed;
     bottom: 0;
     left: 0;
