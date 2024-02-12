@@ -3,16 +3,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh; 
 }
-.spaceorigin {
-    margin: 50px;
-   
-}
-.spacetarget {
-    margin: 50px;
-}
-.linefix{
-    line-height: 50px;
 
+.mid-table {
+    width: 60%;
+    min-width: 60%;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.buttons-container{
+    margin: 50px;
+    display: flex; 
+    justify-content: space-between;
+    width: 350px;
+}
+
+.buttons-container button {
+    transform: scale(1.35);
 }

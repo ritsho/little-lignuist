@@ -13,7 +13,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { GameWords } from '../shared/GameWords';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-game-translate',
@@ -21,11 +23,13 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './game-translate.component.html',
   styleUrl: './game-translate.component.css',
   imports: [FooterComponent, HeaderComponent, NgFor, CommonModule, MatButtonModule, MatInputModule,
-    MatSelectModule, MatFormFieldModule, MatOptionModule, FormsModule, MatIconModule]
+    MatSelectModule, MatFormFieldModule, MatOptionModule, FormsModule, MatIconModule,
+    MatDividerModule, MatListModule, MatTableModule]
 })
 export class GameTranslateComponent implements OnInit {
   wordsCategory!: WordsCategory;
   gameWords: GameWords[] = [];
+  displayedColumns = ['origin-col', 'userinput-col', 'is-correct-col' ];
 
   constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
 
