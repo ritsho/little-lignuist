@@ -29,8 +29,9 @@ import { MatTableModule } from '@angular/material/table';
 export class GameTranslateComponent implements OnInit {
   wordsCategory!: WordsCategory;
   gameWords: GameWords[] = [];
-  displayedColumns = ['origin-col', 'userinput-col', 'is-correct-col'];
-  isCheckButtonWasClicked = false;
+  displayedColumns: string[] = ['origin-col', 'userinput-col', 'is-correct-col'];
+  isCheckButtonWasClicked: boolean = false;
+  checkMessage: string = '';
 
   constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
 
@@ -53,14 +54,25 @@ export class GameTranslateComponent implements OnInit {
 
   }
   onCheck() {
-    this.gameWords.forEach(item => {
+    // it will show the emoji 
+    this.isCheckButtonWasClicked = true;
 
+    let correctGuess = 0;
+
+    this.gameWords.forEach(item => {
       if (item.target == item.userinput) {
         item.isCorrect = true;
+        correctGuess++;
       } else {
         item.isCorrect = false;
       }
     });
-    this.isCheckButtonWasClicked = true;
+
+    // if everything is correct
+    if (correctGuess == this.gameWords.length) {
+      this.checkMessage = "Well done, You finished!!!";
+    } else {
+      this.checkMessage = `You translated ${correctGuess} our of ${this.gameWords.length} words correctly, try again`;
+    }
   }
 }
