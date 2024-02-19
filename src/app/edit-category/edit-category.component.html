@@ -23,10 +23,10 @@
     <div class="wordsMargin">
         <label for="words" class="my-label my-words-label">Words:</label>
         <button (click)="onAddNewWord()" mat-raised-button> + Add new word</button>
-        <div *ngFor="let tw of categoryToEdit.words">
+        <div *ngFor="let tw of categoryToEdit.words; let i = index">
             <label class="my-label">Origin</label>
             <mat-form-field>
-                <input matInput [(ngModel)]="tw.origin" name="origin{{tw.origin}}" maxlength="50" minlength="1"
+                <input matInput [(ngModel)]="tw.origin" name="origin{{i}}" maxlength="50" minlength="1"
                     required pattern="^[A-Za-z]+$" #originWord="ngModel">
                 <mat-error *ngIf="originWord.invalid">
                     Word must be in English letters only
@@ -35,7 +35,7 @@
 
             <label class="my-label">Target</label>
             <mat-form-field>
-                <input matInput [(ngModel)]="tw.target" name="target{{tw.target}}" maxlength="50" minlength="1"
+                <input matInput [(ngModel)]="tw.target" name="target{{i}}" maxlength="50" minlength="1"
                     required pattern="^[א-ת]+$" #targetWord="ngModel">
                 <mat-error *ngIf="targetWord.invalid">
                     Word must be in Hebrew letters only
