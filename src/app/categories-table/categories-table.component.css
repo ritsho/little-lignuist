@@ -1,12 +1,3 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: calc(100vh - 70px - 70px);
-    overflow-y: auto;
-    min-width: 60%;
-}
-
 .center-me {
     display: flex;
     justify-content: center;

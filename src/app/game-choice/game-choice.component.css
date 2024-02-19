@@ -1,8 +1,7 @@
-.container {
+.choice-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: calc(100vh - 70px - 70px);
-    overflow-y: auto;
+    justify-content: center; /* Adjust if you need space between header, component, and footer */
+    height: 70vh; /
 }
