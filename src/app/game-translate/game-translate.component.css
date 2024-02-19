@@ -3,11 +3,11 @@
     min-width: 60%;
 }
 .game-container{
-    display: flex;
+    margin: 30px;
 }
-
 .center-text {
     text-align: center;
+    min-width: 200px;
 }
 
 .title{
