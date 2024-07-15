@@ -3,6 +3,11 @@ import { CategoriesTableComponent } from './categories-table/categories-table.co
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { GameChoiceComponent } from './game-choice/game-choice.component';
 import { GameTranslateComponent } from './game-translate/game-translate.component';
+import { HelpComponent } from './help/help.component';
+import { DasboardComponent } from './dasboard/dasboard.component';
+import { MessyWordsGameComponent } from './messy-words-game/messy-words-game.component';
+import { SortWordsGameComponent } from './sort-words-game/sort-words-game.component';
+import { ChooseGameComponent } from './choose-game/choose-game.component';
 
 export const routes: Routes = [
     { path: '', component: CategoriesTableComponent },
@@ -10,4 +15,10 @@ export const routes: Routes = [
     { path: 'newcategory', component: EditCategoryComponent },
     { path: 'gamechoice', component: GameChoiceComponent },
     { path: 'newgame/:id', component: GameTranslateComponent },
+    { path: 'help', component: HelpComponent },
+    { path: 'dashboard', component: DasboardComponent},
+    { path: 'messy-words-game', component: MessyWordsGameComponent},
+    { path: 'sort-words-game', component: SortWordsGameComponent},
+    { path: 'choose-game', component: ChooseGameComponent},
 ];
+ 
