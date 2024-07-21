@@ -1,16 +1,17 @@
 <mat-toolbar color="primary">
     <button mat-button [matMenuTriggerFor]="menu">
+       
         <mat-icon>menu</mat-icon>
     </button>
+    
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="navigateToGameMode()">Game mode</button>
-      <button mat-menu-item (click)="navigateToAdminMode()">Admin mode</button>
-      <button mat-menu-item (click)="navigateToAdminMode()">Team View</button>
+      <button mat-menu-item routerLink="choose-game">Let's Play</button>
+      <button mat-menu-item routerLink="admin">Admin mode</button>
 
     </mat-menu>
 
     <span class="example-spacer"></span>
-    <span class="title-as-link" (click)="navigateToAdminMode()">Little Linguist </span>
+    <span class="title-as-link" routerLink="">Little Linguist </span>
     <span class="example-spacer"></span>
     
     <button mat-icon-button aria-label="Example icon-button with share icon">

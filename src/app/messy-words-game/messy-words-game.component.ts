@@ -4,9 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-messy-words-game',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: []
+  ,
   templateUrl: './messy-words-game.component.html',
   styleUrl: './messy-words-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -9,14 +9,15 @@ import { MessyWordsGameComponent } from './messy-words-game/messy-words-game.com
 import { SortWordsGameComponent } from './sort-words-game/sort-words-game.component';
 import { ChooseGameComponent } from './choose-game/choose-game.component';
 
+
 export const routes: Routes = [
-    { path: '', component: CategoriesTableComponent },
-    { path: 'edit-category/:id', component: EditCategoryComponent },
+    { path: 'admin', component: CategoriesTableComponent },
+    { path: 'edit-category', component: EditCategoryComponent },
     { path: 'newcategory', component: EditCategoryComponent },
     { path: 'gamechoice', component: GameChoiceComponent },
-    { path: 'newgame/:id', component: GameTranslateComponent },
+    // { path: 'newgame/:id', component: GameTranslateComponent },
     { path: 'help', component: HelpComponent },
-    { path: 'dashboard', component: DasboardComponent},
+    { path: '', component: DasboardComponent},
     { path: 'messy-words-game', component: MessyWordsGameComponent},
     { path: 'sort-words-game', component: SortWordsGameComponent},
     { path: 'choose-game', component: ChooseGameComponent},

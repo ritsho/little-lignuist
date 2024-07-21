@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageCategoriesService } from '../manage-categories.service'
-import { WordsCategory } from '../shared/words-category';
+import { ManageCategoriesService } from '../shared/services/manage-categories.service'
+import { WordsCategory } from '../shared/model/words-category';
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
 import { NgFor } from '@angular/common';
@@ -38,4 +38,3 @@ export class GameChoiceComponent implements OnInit {
     this.wordCategories = this.mc.list();
   }
 }
-

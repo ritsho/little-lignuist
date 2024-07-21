@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WordsCategory } from './shared/words-category';
+import { WordsCategory } from '../model/words-category';
 
 @Injectable({
   providedIn: 'root'

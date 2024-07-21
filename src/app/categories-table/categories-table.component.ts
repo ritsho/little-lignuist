@@ -5,13 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
-import { ManageCategoriesService } from '../manage-categories.service';
+import { ManageCategoriesService } from '../shared/services/manage-categories.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
-import { WordsCategory } from '../shared/words-category';
-import { LanguageEnum } from '../shared/language-enum';
+import { WordsCategory } from '../shared/model/words-category';
+import { LanguageEnum } from '../shared/model/language-enum';
 
 @Component({
   selector: 'app-categories-table',

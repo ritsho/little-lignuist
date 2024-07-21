@@ -11,4 +11,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './choose-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChooseGameComponent { }
+export class ChooseGameComponent {
+  // id: number;
+  // firstName: string;
+  // lastName: string;
+
+  constructor() {
+    // this.id = id;
+    // this.firstName = firstName;
+    // this.lastName = lastName;
+  }
+}
+
+
