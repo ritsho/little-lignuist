@@ -1,0 +1,11 @@
+<div>
+  <mat-card *ngFor="let game of games"
+  (click)="choosegame(game)">
+    <mat-card-header>
+      <mat-card-title>{{ game.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ game.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

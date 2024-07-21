@@ -1,8 +1,8 @@
 export class GameProfile {
 
     constructor(private id: string,
-        private name: string,
-        private description: string,
-        private url: string) {
+        public name: string,
+        public description: string,
+        public url: string) {
     }
 }

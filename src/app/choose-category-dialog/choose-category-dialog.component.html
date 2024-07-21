@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="center-me">Choose Category To Play</h1>
+
+<mat-form-field>
+    <mat-label>Select a category</mat-label>
+    <mat-select [value]="selectedCategory">
+        <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
