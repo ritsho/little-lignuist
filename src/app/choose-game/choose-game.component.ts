@@ -25,8 +25,8 @@ export class ChooseGameComponent {
   }
 
   choosegame(gp: GameProfile) {
-    const chooseCategoryDialog = this.dialog.open(ChooseCategoryDialogComponent, {
-      data: { game: gp },
+    this.dialog.open(ChooseCategoryDialogComponent, {
+      data: { gameProfile: gp },
     });
 
   }
