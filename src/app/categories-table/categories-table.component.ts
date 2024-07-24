@@ -9,7 +9,7 @@ import { ManageCategoriesService } from '../shared/services/manage-categories.se
 import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import { MatSort, MatSortModule} from '@angular/material/sort';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 

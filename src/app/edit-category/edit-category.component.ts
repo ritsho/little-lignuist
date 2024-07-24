@@ -28,11 +28,13 @@ export class EditCategoryComponent {
   categoryToEdit: WordsCategory = new WordsCategory("name", 0, LanguageEnum.Hebrew, LanguageEnum.English, []);
 
   constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('categoryId');
+    console.log(`id: ${id}`);
 
     try {
       // if we fail to get the id, we use the fallback (new category...)
       if (id != null) {
+        console.log(`got id: ${id}`);
         let idAsNumber = parseInt(id);
         let wordsCategory = mc.get(idAsNumber);
         if (wordsCategory != null) {

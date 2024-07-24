@@ -5,6 +5,7 @@ import { GameProfile } from '../model/GameProfile';
     providedIn: 'root'
 })
 export class GameInfoService {
+    
     private games: GameProfile[] = [];
 
     constructor() {

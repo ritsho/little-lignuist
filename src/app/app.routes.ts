@@ -12,7 +12,7 @@ import { ChooseGameComponent } from './choose-game/choose-game.component';
 
 export const routes: Routes = [
     { path: 'admin', component: CategoriesTableComponent },
-    { path: 'edit-category', component: EditCategoryComponent },
+    { path: 'edit-category/:categoryId', component: EditCategoryComponent },
     { path: 'newcategory', component: EditCategoryComponent },
     { path: 'gamechoice', component: GameChoiceComponent },
     // { path: 'newgame/:id', component: GameTranslateComponent },
