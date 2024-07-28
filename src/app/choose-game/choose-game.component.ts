@@ -19,14 +19,15 @@ import { MatDialog } from '@angular/material/dialog';
 export class ChooseGameComponent {
 
   public games: GameProfile[];
-
+  
   constructor(private gis: GameInfoService, private dialog: MatDialog) {
     this.games = gis.getGames();
   }
 
   choosegame(gp: GameProfile) {
+   
     this.dialog.open(ChooseCategoryDialogComponent, {
-      data: { gameProfile: gp },
+      data: gp,
     });
 
   }

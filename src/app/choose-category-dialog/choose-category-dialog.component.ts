@@ -7,10 +7,8 @@ import { NgFor, DatePipe } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { GameProfile } from '../shared/model/GameProfile';
+import { Router } from '@angular/router';
 
-export interface ChooseCategoryDialogData {
-  gameProfile: GameProfile;
-}
 
 @Component({
   selector: 'app-choose-category-dialog',
@@ -20,21 +18,26 @@ export interface ChooseCategoryDialogData {
   styleUrl: './choose-category-dialog.component.css'
 })
 export class ChooseCategoryDialogComponent {
+
   public categories: WordsCategory[] = [];
 
-  public selectedGameProfile: GameProfile | undefined;
-
-  @Input()
   public selectedCategory: WordsCategory | undefined;
 
   constructor(private mcs: ManageCategoriesService,
     @Inject(MAT_DIALOG_DATA)
-    public data: ChooseCategoryDialogData) {
+    public selectedGameProfile: GameProfile, 
+    private router: Router) {
 
     // get list of all categories
     this.categories = this.mcs.list();
+  }
 
-    // save the selected game profile
-    this.selectedGameProfile = this.data.gameProfile;
+  playGame() {
+    if (this.selectedGameProfile != undefined && this.selectedCategory != undefined){
+      let gameUrl = this.selectedGameProfile.url;
+      let category = this.selectedCategory.id;
+      this.router.navigate([gameUrl, category]);
+    }
+    
   }
 }

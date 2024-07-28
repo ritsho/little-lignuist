@@ -8,6 +8,7 @@ import { DasboardComponent } from './dasboard/dasboard.component';
 import { MessyWordsGameComponent } from './messy-words-game/messy-words-game.component';
 import { SortWordsGameComponent } from './sort-words-game/sort-words-game.component';
 import { ChooseGameComponent } from './choose-game/choose-game.component';
+import { GameHelpComponent } from './game-help/game-help.component';
 
 
 export const routes: Routes = [
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'messy-words-game/:categoryId', component: MessyWordsGameComponent},
     { path: 'sort-words-game/:categoryId', component: SortWordsGameComponent},
     { path: 'choose-game', component: ChooseGameComponent},
+    { path: 'game-help', component: GameHelpComponent},
 ];
  
