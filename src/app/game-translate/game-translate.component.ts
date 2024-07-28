@@ -37,11 +37,11 @@ export class GameTranslateComponent implements OnInit {
   isShowTranslation: boolean = false;
 
   constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
-
+   
   }
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    let id = this.activatedRoute.snapshot.paramMap.get('categoryId');
     if (id != null) {
       this.wordsCategory = this.mc.get(parseInt(id));
 

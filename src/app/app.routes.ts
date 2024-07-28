@@ -23,5 +23,6 @@ export const routes: Routes = [
     { path: 'sort-words-game/:categoryId', component: SortWordsGameComponent},
     { path: 'choose-game', component: ChooseGameComponent},
     { path: 'game-help', component: GameHelpComponent},
+    { path: 'game-translate/:categoryId', component: GameTranslateComponent }
 ];
  
