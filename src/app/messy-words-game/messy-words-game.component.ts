@@ -3,11 +3,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WordsCategory } from '../shared/model/words-category';
 import { ManageCategoriesService } from '../shared/services/manage-categories.service';
+import { ExitButtonComponent } from "../exit-button/exit-button.component";
 
 @Component({
   selector: 'app-messy-words-game',
   standalone: true,
-  imports: []
+  imports: [ExitButtonComponent]
   ,
   templateUrl: './messy-words-game.component.html',
   styleUrl: './messy-words-game.component.css',
