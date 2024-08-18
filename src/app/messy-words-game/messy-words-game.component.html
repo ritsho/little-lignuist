@@ -1,5 +1,22 @@
 <app-exit-button></app-exit-button>
 <p>Game: Messy Words Game</p>
-<p>Category: {{category?.name}}</p>
+<p>Category: {{category.name}}</p>
 
 
+<div>{{category.words[playerIndex].target}}</div>
+<div>{{messyWord}}</div>
+<div>
+    <span>Guess:</span>
+    <input matInput [(ngModel)]="playerGuess" name="playerGuessInput">
+</div>
+
+<div>
+    <button mat-button (click)="resetWord()">Reset</button>
+    <button mat-button (click)="goToNextWord()">Submit</button>
+</div>
+
+<div class="progress-container">
+    <span>{{playerIndex}}</span>
+    <mat-progress-bar mode="determinate" [value]="playerProgress"></mat-progress-bar>
+    <span>{{category.words.length}}</span>
+</div>
