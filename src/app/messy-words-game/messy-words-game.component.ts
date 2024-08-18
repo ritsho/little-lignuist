@@ -24,7 +24,7 @@ export class MessyWordsGameComponent {
   playerIndex: number = 0;
   playerProgress: number = 0;
   playerGuess: string = "";
-  messyWord: string = "";
+  messyWord: string = "WHAT_WHAT_WHAT";
 
   constructor(private route: ActivatedRoute, private mcs: ManageCategoriesService) {
     let categoryId = this.route.snapshot.paramMap.get('categoryId');
@@ -35,28 +35,36 @@ export class MessyWordsGameComponent {
     }
   }
 
-  resetWord() {
+  resetGuess() {
     this.playerGuess = "";
   }
 
   mixCurrentWord() {
     let origWord = this.category.words[this.playerIndex].origin;
-    // נשיג את האותיות בתור מערך
-    let letters = origWord.split('');
-    let shuffledWord = '';
+    // TODO: נערבב את האותיות
 
-    while (letters.length > 0) {
-      // נבחר אות רנדומלית
-      let randomIndex = Math.floor(Math.random() * letters.length);
-      // נסיר את האות מהמילה המקורית, ונוסיף למערך המילים המבולגנות
-      shuffledWord += letters.splice(randomIndex, 1) + " ";
-    }
-    this.messyWord = shuffledWord.toUpperCase();
+
+
+
+
+    
+    // TODO: נשמור את התוצאה ונציג אותה... 
+
   }
 
   goToNextWord() {
-    this.playerIndex++;
-    this.playerProgress = Math.round(this.playerIndex / this.category.words.length * 100);
-    this.mixCurrentWord();
+    // אם השחקן כתב ניחוש כל שהוא
+    if (this.playerGuess != "") {
+      // TODO: לבדוק את הניחוש
+
+      // נאפס את הניחוש עבור המילה הבאה
+      this.resetGuess();
+      // נעבור למילה הבאה
+      this.playerIndex++;
+      // נציג את ההתקדמות הנכונה באחוזים
+      this.playerProgress = Math.round(this.playerIndex / this.category.words.length * 100);
+      // נציג את המילה המעורבבת הבאה
+      this.mixCurrentWord();
+    }
   }
 }
