@@ -1,22 +1,44 @@
-<app-exit-button></app-exit-button>
-<p>Game: Messy Words Game</p>
-<p>Category: {{category.name}}</p>
-
-
-<div>{{category.words[playerIndex].target}}</div>
-<div>{{messyWord}}</div>
-<div>
-    <span>Guess:</span>
-    <input matInput [(ngModel)]="playerGuess" name="playerGuessInput">
-</div>
-
-<div>
-    <button mat-button (click)="resetGuess()">Reset</button>
-    <button mat-button (click)="goToNextWord()">Submit</button>
-</div>
-
-<div class="progress-container">
-    <span>{{playerIndex}}</span>
+<div *ngIf="!endgame && WordsCategory.length > 0">
+  <app-exit-button></app-exit-button>
+  <form #messywordsgame="ngForm" (ngSubmit)="goToNextWord()">
+    <div class="tittleGame">
+      <h1>Messy Words - {{ category.name }}</h1>
+      <div>{{ WordsCategory[wordIndex].target }}</div>
+      <div>{{ messyWord }}</div>
+      <mat-form-field>
+        <mat-label>Guess:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="playerGuess"
+          name="Guess"
+          #guessplayer="ngModel"
+          required
+        />
+      </mat-form-field>
+      <div class="buttonsGame">
+        <button
+          type="reset"
+          mat-raised-button
+          color="primary"
+          (click)="resetGuess()"
+        >
+          Reset
+        </button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="goToNextWord()"
+        >
+          Submit
+        </button>
+      </div>
+    <div class="progress-container">
+    <span>{{wordIndex}}</span>
     <mat-progress-bar mode="determinate" [value]="playerProgress"></mat-progress-bar>
-    <span>{{category.words.length}}</span>
-</div>
+    <span>{{category.words.length}}></span>
+    </div>
+  </div>
+  </form>
+  </div>
+

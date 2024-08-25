@@ -25,4 +25,3 @@ export const routes: Routes = [
     { path: 'game-help', component: GameHelpComponent},
     { path: 'game-translate/:categoryId', component: GameTranslateComponent }
 ];
- 
