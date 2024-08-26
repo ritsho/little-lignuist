@@ -33,12 +33,14 @@
           Submit
         </button>
       </div>
-    <div class="progress-container">
-    <span>{{wordIndex}}</span>
-    <mat-progress-bar mode="determinate" [value]="playerProgress"></mat-progress-bar>
-    <span>{{category.words.length}}></span>
+      <div class="progress-container">
+        <span>{{ wordIndex }}</span>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="playerProgress"
+        ></mat-progress-bar>
+        <span>{{ category.words.length }}></span>
+      </div>
     </div>
-  </div>
   </form>
-  </div>
-
+</div>
