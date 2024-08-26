@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LanguageEnum } from '../shared/model/language-enum';
 import { MatDialog } from '@angular/material/dialog';
 import { GameoverComponent } from '../gameover/gameover.component';
+import { GamePointsComponent } from '../game-points/game-points.component';
 
 @Component({
   selector: 'app-messy-words-game',
@@ -26,6 +27,7 @@ import { GameoverComponent } from '../gameover/gameover.component';
     MatInputModule,
     FormsModule,
     MatIconModule,
+    GamePointsComponent,
   ],
   templateUrl: './messy-words-game.component.html',
   styleUrl: './messy-words-game.component.css',
@@ -34,14 +36,15 @@ import { GameoverComponent } from '../gameover/gameover.component';
 export class MessyWordsGameComponent {
   @Input() playerGuess: string = '';
   category: WordsCategory;
-  words: TranslatedWord[] = [];
   wordIndex: number = 0;
   messyWord: string = '';
   playerProgress: number = 0;
-  endgame = false;
-  pointsGame: number = 0;
   durationSecondsGame: number = 0;
   allGuesses: string[] = [];
+  points: number = 0;
+  isLastGuessCorrect: boolean = false;
+  pointsPerCorrect: number = 0;
+  correctGuesses: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,8 +55,11 @@ export class MessyWordsGameComponent {
     let categoryId = this.route.snapshot.paramMap.get('categoryId');
     if (categoryId != null) {
       this.category = this.mcs.get(parseInt(categoryId));
-      this.words = this.category.words;
-      console.log(this.category?.words.length);
+
+      // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
+      this.pointsPerCorrect = Math.floor(100 / this.category.words.length);
+
+      // נערבב את המילה הראשונה
       this.mixCurrentWord();
     } else {
       this.category = new WordsCategory(
@@ -78,41 +84,78 @@ export class MessyWordsGameComponent {
       .toUpperCase();
   }
 
-  goToNextWord() {
-    // אם השחקן כתב ניחוש כל שהוא
-    if (this.playerGuess != '') {
-      if (this.wordIndex == this.words.length - 1) {
-        this.goToGameOver();
-      } else {
-        const winDialog = this.dialog.open(PlayerSucceedComponent, {
-          data: {
-            isWin:
-              this.playerGuess.toLowerCase() ==
-              this.words[this.wordIndex].origin.toLowerCase(),
-          },
-        });
+  showNextWord() {
+    // לפני שעוברים למילה הבאה - נציג דיאלוג האם הניחוש הנוכחי היה נכון או לא
+    this.dialog.open(PlayerSucceedComponent, {
+      data: {
+        isWin: this.isLastGuessCorrect,
+      },
+    });
 
-        this.allGuesses.push(this.playerGuess);
-        // נאפס את הניחוש עבור המילה הבאה
-        this.resetGuess();
+    // נאפס את הניחוש עבור המילה הבאה
+    this.resetGuess();
 
-        // נעבור למילה הבאה
-        this.wordIndex++;
-        this.mixCurrentWord();
-        // נציג את ההתקדמות הנכונה באחוזים
-        this.playerProgress = Math.round(
-          (this.wordIndex / this.category.words.length) * 100
-        );
+    // נעבור למילה הבאה
+    this.wordIndex++;
 
-        // נציג את המילה המעורבבת הבאה
-        this.mixCurrentWord();
-      }
+    // נערבב את האותיות
+    this.mixCurrentWord();
+
+    // נציג את ההתקדמות הנכונה באחוזים
+    this.playerProgress = Math.round(
+      (this.wordIndex / this.category.words.length) * 100
+    );
+
+    // נציג את המילה המעורבבת הבאה
+    this.mixCurrentWord();
+  }
+
+  goToNextSomething() {
+    // אם השחקן לא כתב ניחוש בכלל
+    if (this.playerGuess == '') {
+      // אין צורך לעשות דבר - נצא מהמתודה
+      return;
+    }
+
+    // האם הניחוש האחרון היה נכון או לא
+    this.isLastGuessCorrect =
+      this.playerGuess.toLowerCase() ==
+      this.category.words[this.wordIndex].origin.toLowerCase();
+
+    // אם השחקן צדק נעלה לו את הניקוד
+    if (this.isLastGuessCorrect) {
+      // סופרים כמה פעמים הוא צדק כדי להציג במסך הסיכום
+      this.correctGuesses++;
+
+      console.log('adding ', Math.floor(100 / this.category.words.length));
+      // נשתמש בכמות הנקודות שחישבנו בהתחלה
+      this.points += this.pointsPerCorrect;
+    }
+
+    // נשמור את הניחוש האחרון
+    this.allGuesses.push(this.playerGuess);
+
+    // אם אנחנו במילה האחרונה
+    if (this.wordIndex == this.category.words.length - 1) {
+      // נציג את מסך הסיכום
+      this.goToGameOver();
+    } else {
+      // נעבור למילה הבאה
+      this.showNextWord();
     }
   }
 
   goToGameOver() {
-    this.router.navigate(['/gameover'], { state: { 
-      data: { words: this.words, guesses: this.allGuesses },
-     } });
+    this.router.navigate(['/gameover'], {
+      state: {
+        data: {
+          categoryName: this.category.name,
+          points: this.points,
+          correctGuesses: this.correctGuesses,
+          words: this.category.words,
+          guesses: this.allGuesses,
+        },
+      },
+    });
   }
 }

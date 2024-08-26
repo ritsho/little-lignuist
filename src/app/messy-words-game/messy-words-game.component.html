@@ -1,9 +1,19 @@
-<div *ngIf="!endgame && words.length > 0">
-  <app-exit-button></app-exit-button>
-  <form #messywordsgame="ngForm" (ngSubmit)="goToNextWord()">
-    <div class="tittleGame">
+<div *ngIf="category.words.length > 0">
+  <div class="game-title">
+    <div class="column">
+      <app-exit-button></app-exit-button>
+    </div>
+    <div class="column">
       <h1>Messy Words - {{ category.name }}</h1>
-      <div>{{ words[wordIndex].target }}</div>
+    </div>
+    <div class="column">
+      <app-game-points [points]="points"></app-game-points>
+    </div>
+  </div>
+
+  <form (ngSubmit)="goToNextSomething()">
+    <div>
+      <div>{{ category.words[wordIndex].target }}</div>
       <div>{{ messyWord }}</div>
       <mat-form-field>
         <mat-label>Guess:</mat-label>
@@ -28,7 +38,7 @@
           type="submit"
           mat-raised-button
           color="primary"
-          (click)="goToNextWord()"
+          (click)="goToNextSomething()"
         >
           Submit
         </button>
@@ -36,10 +46,11 @@
       <div class="progress-container">
         <span>{{ wordIndex }}</span>
         <mat-progress-bar
+          class="custom-progress-bar"
           mode="determinate"
           [value]="playerProgress"
         ></mat-progress-bar>
-        <span>{{ category.words.length }}></span>
+        <span>{{ category.words.length }}</span>
       </div>
     </div>
   </form>

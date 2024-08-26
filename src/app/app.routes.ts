@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'gamechoice', component: GameChoiceComponent },
   // { path: 'newgame/:id', component: GameTranslateComponent },
   { path: 'help', component: HelpComponent },
-  { path: '', component: DasboardComponent },
+  { path: '', component: ChooseGameComponent },
   { path: 'messy-words-game/:categoryId', component: MessyWordsGameComponent },
   { path: 'sort-words-game/:categoryId', component: SortWordsGameComponent },
   { path: 'choose-game', component: ChooseGameComponent },

@@ -2,8 +2,35 @@
   display: block;
 }
 
+.game-title {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px; /* Space between columns */
+  justify-items: center; /* Horizontally center the middle column */
+}
+
+.column {
+  padding: 10px;
+}
+
 .progress-container {
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttonsGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
