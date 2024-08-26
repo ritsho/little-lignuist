@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 export interface PlayerSucceedData{
@@ -11,7 +11,7 @@ export interface PlayerSucceedData{
 @Component({
   selector: 'app-player-succeed',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule,CommonModule],
+  imports: [MatButtonModule, MatIconModule,CommonModule, MatDialogClose],
   templateUrl: './player-succeed.component.html',
   styleUrl: './player-succeed.component.css',
 })
