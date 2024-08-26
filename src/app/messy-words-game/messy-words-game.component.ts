@@ -2,7 +2,7 @@ import { PlayerSucceedComponent } from './../player-succeed/player-succeed.compo
 import { WordsCategory } from './../shared/model/words-category';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ManageCategoriesService } from '../shared/services/manage-categories.service';
 import { ExitButtonComponent } from '../exit-button/exit-button.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -46,7 +46,8 @@ export class MessyWordsGameComponent {
   constructor(
     private route: ActivatedRoute,
     private mcs: ManageCategoriesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     let categoryId = this.route.snapshot.paramMap.get('categoryId');
     if (categoryId != null) {
@@ -110,8 +111,8 @@ export class MessyWordsGameComponent {
   }
 
   goToGameOver() {
-    const winDialog = this.dialog.open(GameoverComponent, {
+    this.router.navigate(['/gameover'], { state: { 
       data: { words: this.words, guesses: this.allGuesses },
-    });
+     } });
   }
 }

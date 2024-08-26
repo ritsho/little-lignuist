@@ -28,11 +28,18 @@ export class GameoverComponent {
   displayedColumns: string[] = ['hebrew', 'english', 'iscorrect'];
   dataSource: SummeryTable[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: GameOverData, private router: Router) {
-    this.dataSource = this.data.words.map((translatedword, index) => ({
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    const data = navigation?.extras?.state?.['data'] as GameOverData;
+
+    // עבור כל צמד מילים
+    this.dataSource = data.words.map((translatedword, index) => ({
+      // נחלץ את המילה בעברית
       hebrew: translatedword.origin,
+      // נחלץ את המילה באנגלית
       english: translatedword.target,
-      isCorrect: this.data.guesses[index] == this.data.words[index].target,
+      // נבדוק אם הניחוש של המשתמש היה נכון
+      isCorrect: data.guesses[index] == data.words[index].target,
     }));
   }
 
