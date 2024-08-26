@@ -1,9 +1,9 @@
-<div *ngIf="!endgame && WordsCategory.length > 0">
+<div *ngIf="!endgame && words.length > 0">
   <app-exit-button></app-exit-button>
   <form #messywordsgame="ngForm" (ngSubmit)="goToNextWord()">
     <div class="tittleGame">
       <h1>Messy Words - {{ category.name }}</h1>
-      <div>{{ WordsCategory[wordIndex].target }}</div>
+      <div>{{ words[wordIndex].target }}</div>
       <div>{{ messyWord }}</div>
       <mat-form-field>
         <mat-label>Guess:</mat-label>
