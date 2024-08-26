@@ -111,7 +111,7 @@ export class MessyWordsGameComponent {
 
   goToGameOver() {
     const winDialog = this.dialog.open(GameoverComponent, {
-      data: {},
+      data: { words: this.words, guesses: this.allGuesses },
     });
   }
 }
