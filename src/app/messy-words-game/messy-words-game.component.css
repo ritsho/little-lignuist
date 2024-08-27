@@ -11,7 +11,16 @@
 
 .column {
   padding: 10px;
+  margin-left: auto;
 }
+
+.column1{
+  margin-right: auto;
+  display: block;
+  font-size: large;
+
+}
+
 
 .progress-container {
   display: flex;
@@ -23,14 +32,45 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  background-color: white;
+  padding: 2px; /* Adjust as needed */
+  height: calc(70vh - 40px); /* Subtract padding or other elements */
+  width: calc(100vw - 40px); /* Subtract padding or other elements */
+  background: radial-gradient(to-right, #f876ef, #9255e7 );
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.bigletters{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  font-weight: bold;
+  padding-bottom: 15px;
+}
+
+.largeletters{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  padding-bottom: 25px;
+
 }
 
 .buttonsGame {
   display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
+  gap: 10px;
+  padding-bottom: 25px;
+}
+
+.progressleft{
+  font-size:large;
+}
+
+.progress-container{
+  font-size:large;
 }

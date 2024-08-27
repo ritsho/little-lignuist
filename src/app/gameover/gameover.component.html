@@ -1,10 +1,13 @@
 <div>
-  <h1>Messy Words - {{ dataFromGame.categoryName }} - Results</h1>
-  <div>Grade: {{ dataFromGame.points }}</div>
-  <div>
+  <h1 class="tittle">
+    Messy Words - {{ dataFromGame.categoryName }} - Results
+  </h1>
+  <div class="grade">Grade: {{ dataFromGame.points }}</div>
+  <div class="grade">
     You translated {{ dataFromGame.correctGuesses }} out of
     {{ dataSource.length }} words correctly
   </div>
+  <div class="table">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Hebrew Column -->
     <ng-container matColumnDef="hebrew">
@@ -30,6 +33,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+</div>
   <div class="center-me">
     <button
       mat-raised-button
