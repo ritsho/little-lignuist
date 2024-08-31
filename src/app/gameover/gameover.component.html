@@ -10,11 +10,12 @@
   <div class="table">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Hebrew Column -->
+  
     <ng-container matColumnDef="hebrew">
       <th mat-header-cell *matHeaderCellDef>Hebrew</th>
       <td mat-cell *matCellDef="let element">{{ element.hebrew }}</td>
     </ng-container>
-
+  
     <!-- English Column -->
     <ng-container matColumnDef="english">
       <th mat-header-cell *matHeaderCellDef>English</th>
@@ -32,6 +33,7 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
   </table>
 </div>
   <div class="center-me">

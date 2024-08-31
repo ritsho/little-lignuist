@@ -26,6 +26,8 @@
   display: flex;
   align-items: center;
   width: 100%;
+  padding-left: 10px;
+
 }
 
 form {
@@ -69,8 +71,13 @@ form {
 
 .progressleft{
   font-size:large;
+  border-radius: 50px;
+ 
 }
 
 .progress-container{
   font-size:large;
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
 }
