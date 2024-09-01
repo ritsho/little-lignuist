@@ -1,4 +1,4 @@
-<div *ngIf="category.words.length > 0">
+<div *ngIf="words.length > 0" class="messy-game-container">
   <div class="game-title">
     <div class="column1">
       <app-game-points [points]="points"></app-game-points>
@@ -13,44 +13,28 @@
 
   <form (ngSubmit)="goToNextSomething()">
     <div>
-      <div class="bigletters">{{ category.words[wordIndex].target }}</div>
+      <div class="bigletters">{{ words[wordIndex].target }}</div>
       <div class="largeletters">{{ messyWord }}</div>
-      <mat-form-field>
-        <mat-label>Guess:</mat-label>
-        <input
-          matInput
-          [(ngModel)]="playerGuess"
-          name="Guess"
-          #guessplayer="ngModel"
-          required
-        />
-      </mat-form-field>
+      <div class="user-guess">
+        <mat-form-field>
+          <mat-label>Guess:</mat-label>
+          <input matInput [(ngModel)]="playerGuess" name="Guess" #guessplayer="ngModel" required />
+        </mat-form-field>
+      </div>
+
       <div class="buttonsGame">
-        <button
-          type="reset"
-          mat-raised-button
-          color="primary"
-          (click)="resetGuess()"
-        >
+        <button type="reset" mat-raised-button color="primary" (click)="resetGuess()">
           Reset
         </button>
-        <button
-          type="submit"
-          mat-raised-button
-          color="primary"
-          (click)="goToNextSomething()"
-        >
+        <button type="submit" mat-raised-button color="primary" (click)="goToNextSomething()">
           Submit
         </button>
       </div>
+
       <div class="progress-container">
-        <span>{{ wordIndex }}</span>
-        <mat-progress-bar
-          class="custom-progress-bar"
-          mode="determinate"
-          [value]="playerProgress"
-        ></mat-progress-bar>
-        <span class="progressleft">{{ category.words.length }}</span>
+        <span class="nice-border">{{ wordIndex }}</span>
+        <mat-progress-bar class="custom-progress-bar" mode="determinate" [value]="playerProgress"></mat-progress-bar>
+        <span class="progressleft nice-border">{{ words.length }}</span>
       </div>
     </div>
   </form>

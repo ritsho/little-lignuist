@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-export interface GameOverData {
+export interface MessyGameOverData {
   categoryName: string;
   points: number;
   correctGuesses: number;
@@ -15,14 +15,14 @@ export interface GameOverData {
   guesses: string[];
 }
 
-export interface SummeryTable {
+export interface MessySummeryTable {
   hebrew: string;
   english: string;
   isCorrect: boolean;
 }
 
 @Component({
-  selector: 'app-gameover',
+  selector: 'app-messy-game-over',
   standalone: true,
   imports: [
     MatDialogModule,
@@ -31,17 +31,17 @@ export interface SummeryTable {
     CommonModule,
     MatButtonModule,
   ],
-  templateUrl: './gameover.component.html',
-  styleUrl: './gameover.component.css',
+  templateUrl: './messy-game-over.component.html',
+  styleUrl: './messy-game-over.component.css',
 })
-export class GameoverComponent {
+export class MessyGameOverComponent {
   displayedColumns: string[] = ['hebrew', 'english', 'iscorrect'];
-  dataFromGame: GameOverData;
-  dataSource: SummeryTable[];
+  dataFromGame: MessyGameOverData;
+  dataSource: MessySummeryTable[];
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    this.dataFromGame = navigation?.extras?.state?.['data'] as GameOverData;
+    this.dataFromGame = navigation?.extras?.state?.['data'] as MessyGameOverData;
 
     // עבור כל צמד מילים
     this.dataSource = this.dataFromGame.words.map((translatedword, index) => ({

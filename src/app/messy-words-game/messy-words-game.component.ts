@@ -9,12 +9,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { TranslatedWord } from '../shared/model/translated-word';
 import { MatIconModule } from '@angular/material/icon';
 import { LanguageEnum } from '../shared/model/language-enum';
 import { MatDialog } from '@angular/material/dialog';
-import { GameoverComponent } from '../gameover/gameover.component';
 import { GamePointsComponent } from '../game-points/game-points.component';
+import { TranslatedWord } from '../shared/model/translated-word';
 
 @Component({
   selector: 'app-messy-words-game',
@@ -40,6 +39,7 @@ export class MessyWordsGameComponent {
   messyWord: string = '';
   playerProgress: number = 0;
   durationSecondsGame: number = 0;
+  words: TranslatedWord[] = [];
   allGuesses: string[] = [];
   points: number = 0;
   isLastGuessCorrect: boolean = false;
@@ -55,9 +55,10 @@ export class MessyWordsGameComponent {
     let categoryId = this.route.snapshot.paramMap.get('categoryId');
     if (categoryId != null) {
       this.category = this.mcs.get(parseInt(categoryId));
+      this.words = [...this.category.words].sort(() => Math.random() - 0.5);
 
       // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
-      this.pointsPerCorrect = Math.floor(100 / this.category.words.length);
+      this.pointsPerCorrect = Math.floor(100 / this.words.length);
 
       // נערבב את המילה הראשונה
       this.mixCurrentWord();
@@ -77,11 +78,12 @@ export class MessyWordsGameComponent {
   }
 
   mixCurrentWord() {
-    let origWord = this.category.words[this.wordIndex].origin;
-    this.messyWord = [...origWord]
-      .sort(() => Math.random() - 0.5)
-      .join(' ')
-      .toUpperCase();
+    let origWord = this.words[this.wordIndex].origin;
+    let tempWord = origWord;
+    while (tempWord == origWord) {
+      tempWord = [...origWord].sort(() => Math.random() - 0.5).join('');
+      this.messyWord = [...tempWord].join(' ').toUpperCase();
+    }
   }
 
   showNextWord() {
@@ -103,7 +105,7 @@ export class MessyWordsGameComponent {
 
     // נציג את ההתקדמות הנכונה באחוזים
     this.playerProgress = Math.round(
-      (this.wordIndex / this.category.words.length) * 100
+      (this.wordIndex / this.words.length) * 100
     );
 
     // נציג את המילה המעורבבת הבאה
@@ -120,14 +122,14 @@ export class MessyWordsGameComponent {
     // האם הניחוש האחרון היה נכון או לא
     this.isLastGuessCorrect =
       this.playerGuess.toLowerCase() ==
-      this.category.words[this.wordIndex].origin.toLowerCase();
+      this.words[this.wordIndex].origin.toLowerCase();
 
     // אם השחקן צדק נעלה לו את הניקוד
     if (this.isLastGuessCorrect) {
       // סופרים כמה פעמים הוא צדק כדי להציג במסך הסיכום
       this.correctGuesses++;
 
-      console.log('adding ', Math.floor(100 / this.category.words.length));
+      console.log('adding ', Math.floor(100 / this.words.length));
       // נשתמש בכמות הנקודות שחישבנו בהתחלה
       this.points += this.pointsPerCorrect;
     }
@@ -136,7 +138,7 @@ export class MessyWordsGameComponent {
     this.allGuesses.push(this.playerGuess);
 
     // אם אנחנו במילה האחרונה
-    if (this.wordIndex == this.category.words.length - 1) {
+    if (this.wordIndex == this.words.length - 1) {
       // נציג את מסך הסיכום
       this.goToGameOver();
     } else {
@@ -146,13 +148,13 @@ export class MessyWordsGameComponent {
   }
 
   goToGameOver() {
-    this.router.navigate(['/gameover'], {
+    this.router.navigate(['/messy-game-over'], {
       state: {
         data: {
           categoryName: this.category.name,
           points: this.points,
           correctGuesses: this.correctGuesses,
-          words: this.category.words,
+          words: this.words,
           guesses: this.allGuesses,
         },
       },

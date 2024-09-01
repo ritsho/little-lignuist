@@ -27,7 +27,7 @@ export class ChooseGameComponent implements OnInit {
   ngOnInit(): void {
     this.games = this.gis.getGames();
   }
-  
+
   choosegame(gp: GameProfile) {
 
     this.dialog.open(ChooseCategoryDialogComponent, {

@@ -1,3 +1,64 @@
 :host {
   display: block;
+  /* background-color: #bd9deb; */
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 10px;
+  font-size:large;
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+button{
+  padding: 10px;
+  margin: 20px;
+}
+
+.game-title {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px; 
+  justify-items: center; 
+}
+
+.main-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px; 
+  height: calc(70vh - 40px); 
+  width: calc(100vw - 40px); 
+  border-radius: 10px;
+  background: radial-gradient(#ba86e4, #9198e5);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.question{
+  font-size: x-large;
+  margin-bottom: 20px;
+}
+
+.nice-border {
+  border: 2px solid #9255e7; 
+  border-radius: 4px; 
+  padding: 4px 8px; 
+  background-color: #f2f2f2; 
+  color: #333; 
+  font-weight: bold; 
 }

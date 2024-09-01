@@ -1,2 +1,37 @@
-<p>Game: Sort Game</p>
-<p>Category: {{category?.name}}</p>
+<div>
+    <div class="game-title">
+        <div class="column1">
+            <app-game-points [points]="points"></app-game-points>
+        </div>
+        <div class="column">
+            <h1>Sort Game - {{ category.name }}</h1>
+        </div>
+        <div class="column">
+            <app-exit-button></app-exit-button>
+        </div>
+    </div>
+
+    <div class="main-game">
+        <div class="container">
+            <span class="question">
+                <span>Is the word </span>
+                <span class="bold">{{ currentWord }}</span>
+                <span> part of </span>
+                <span class="bold">{{ category.name }}</span>
+                <span> category?</span>
+            </span>
+            <div>
+                <button mat-raised-button (click)="onYesClick()" color="primary">Yes</button>
+                <button mat-raised-button (click)="onNoClick()" color="second">No</button>
+            </div>
+
+            <div class="progress-container">
+                <span class="nice-border">{{ currentWordIndex }}</span>
+                <mat-progress-bar class="custom-progress-bar" mode="determinate"
+                    [value]="playerProgress"></mat-progress-bar>
+                <span class="progressleft nice-border">{{ words.length }}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

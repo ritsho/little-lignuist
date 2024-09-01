@@ -1,4 +1,4 @@
-import { GameoverComponent } from './gameover/gameover.component';
+import { MessyGameOverComponent } from './messy-game-over/messy-game-over.component';
 import { Routes } from '@angular/router';
 import { CategoriesTableComponent } from './categories-table/categories-table.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
@@ -10,6 +10,7 @@ import { MessyWordsGameComponent } from './messy-words-game/messy-words-game.com
 import { SortWordsGameComponent } from './sort-words-game/sort-words-game.component';
 import { ChooseGameComponent } from './choose-game/choose-game.component';
 import { GameHelpComponent } from './game-help/game-help.component';
+import { SortGameOverComponent } from './sort-game-over/sort-game-over.component';
 
 export const routes: Routes = [
   { path: 'admin', component: CategoriesTableComponent },
@@ -24,5 +25,6 @@ export const routes: Routes = [
   { path: 'choose-game', component: ChooseGameComponent },
   { path: 'game-help', component: GameHelpComponent },
   { path: 'game-translate/:categoryId', component: GameTranslateComponent },
-  { path: 'gameover', component: GameoverComponent },
+  { path: 'messy-game-over', component: MessyGameOverComponent },
+  { path: 'sort-game-over', component: SortGameOverComponent },
 ];
