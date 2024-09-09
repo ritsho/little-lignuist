@@ -1,7 +1,7 @@
 import { ManageCategoriesService } from './../shared/services/manage-categories.service';
 import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 import { TranslatedWord } from '../shared/model/translated-word';
@@ -16,14 +16,17 @@ import { ExitButtonComponent } from '../exit-button/exit-button.component';
   selector: 'app-sort-words-game',
   standalone: true,
   imports: [
-    CommonModule, MatProgressBarModule, MatButtonModule, GamePointsComponent, ExitButtonComponent
+    CommonModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    GamePointsComponent,
+    ExitButtonComponent,
   ],
   templateUrl: './sort-words-game.component.html',
   styleUrl: './sort-words-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SortWordsGameComponent {
-
+export class SortWordsGameComponent implements OnInit {
   public category: WordsCategory;
   public words: TranslatedWord[] = [];
   public currentWord: string = '';
@@ -31,26 +34,51 @@ export class SortWordsGameComponent {
   public playerProgress: number = 0;
   public points: number = 0;
 
+  private categoryIdFromRoute: string | null;
   private isEndGame: boolean = false;
   private guesses: boolean[] = [];
   private pointsPerCorrect: number = 0;
   private correctGuesses: number = 0;
   private randomCategory: WordsCategory;
 
-  constructor(private route: ActivatedRoute, private mcs: ManageCategoriesService,
-    private dialog: MatDialog, private router: Router) {
-    this.category = new WordsCategory('fake', 1, LanguageEnum.English, LanguageEnum.Hebrew, []);
-    this.randomCategory = new WordsCategory('fake2', 2, LanguageEnum.English, LanguageEnum.Hebrew, []);
+  constructor(
+    private route: ActivatedRoute,
+    private mcs: ManageCategoriesService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {
+    this.category = new WordsCategory(
+      'fake',
+      '1',
+      LanguageEnum.English,
+      LanguageEnum.Hebrew,
+      []
+    );
+    this.randomCategory = new WordsCategory(
+      'fake2',
+      '2',
+      LanguageEnum.English,
+      LanguageEnum.Hebrew,
+      []
+    );
 
-    let categoryId = this.route.snapshot.paramMap.get('categoryId');
-    if (categoryId != null) {
-      this.category = this.mcs.get(parseInt(categoryId));
+    this.categoryIdFromRoute = this.route.snapshot.paramMap.get('categoryId');
+  }
+  async ngOnInit(): Promise<void> {
+    if (this.categoryIdFromRoute != null) {
+      this.category = this.mcs.get(parseInt(this.categoryIdFromRoute));
 
-      let allCategories = this.mcs.list();
-      this.randomCategory = this.getRandomCateogory(this.category, allCategories);
+      let allCategories = await this.mcs.list();
+      this.randomCategory = this.getRandomCateogory(
+        this.category,
+        allCategories
+      );
 
       this.words = this.getWordsFromCategory(this.category, 3);
-      let randomWordsFromOther = this.getWordsFromCategory(this.randomCategory, 3);
+      let randomWordsFromOther = this.getWordsFromCategory(
+        this.randomCategory,
+        3
+      );
 
       this.words = this.words.concat(randomWordsFromOther);
       this.words = [...this.words].sort(() => Math.random() - 0.5);
@@ -63,15 +91,24 @@ export class SortWordsGameComponent {
     }
   }
 
-  getRandomCateogory(category: WordsCategory, allCategories: WordsCategory[]): WordsCategory {
-    allCategories = allCategories.filter(c => c.id != category.id);
-    let randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+  getRandomCateogory(
+    category: WordsCategory,
+    allCategories: WordsCategory[]
+  ): WordsCategory {
+    allCategories = allCategories.filter((c) => c.id != category.id);
+    let randomCategory =
+      allCategories[Math.floor(Math.random() * allCategories.length)];
     return randomCategory;
   }
 
-  getWordsFromCategory(category: WordsCategory, count: number): TranslatedWord[] {
-    let randomWords = category.words.sort(() => Math.random() - 0.5).slice(0, count);
-    return randomWords
+  getWordsFromCategory(
+    category: WordsCategory,
+    count: number
+  ): TranslatedWord[] {
+    let randomWords = category.words
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count);
+    return randomWords;
   }
 
   onNoClick() {
@@ -85,11 +122,17 @@ export class SortWordsGameComponent {
     this.currentWord = this.words[this.currentWordIndex].origin;
   }
 
-  isGuessCorrect(word: string, category: WordsCategory, guess: boolean): boolean {
+  isGuessCorrect(
+    word: string,
+    category: WordsCategory,
+    guess: boolean
+  ): boolean {
     // אם המשתמש ניחש 'כן' והמילה באמת נמצאת בקטגוריה
     // או אם המשתמש ניחש לא, והמילה לא בקטגוריה
-    if (guess && category.words.some(tw => tw.origin == word) ||
-      !guess && !category.words.some(tw => tw.origin == word)) {
+    if (
+      (guess && category.words.some((tw) => tw.origin == word)) ||
+      (!guess && !category.words.some((tw) => tw.origin == word))
+    ) {
       // המשתמש צדק
       return true;
     }
@@ -98,7 +141,6 @@ export class SortWordsGameComponent {
   }
 
   onPlayerGuess(guess: boolean) {
-
     // נשמור את הניחוש
     this.guesses[this.currentWordIndex] = guess;
     let isCorrect = this.isGuessCorrect(this.currentWord, this.category, guess);
@@ -127,8 +169,7 @@ export class SortWordsGameComponent {
           },
         },
       });
-    }
-    else {
+    } else {
       this.dialog.open(PlayerSucceedComponent, {
         data: {
           isWin: isCorrect,

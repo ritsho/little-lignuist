@@ -1,38 +1,39 @@
-import { Injectable } from '@angular/core';
-import { WordsCategory } from '../model/words-category';
+import { WordsCategory } from './../model/words-category';
+import { inject, Injectable } from '@angular/core';
+import {
+  collection,
+  DocumentSnapshot,
+  Firestore,
+  getDocs,
+} from '@angular/fire/firestore';
+import { CategoryConverter } from '../converters/category-converter';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ManageCategoriesService {
+  private firestoreService = inject(Firestore);
 
-  getNextId(): number {
-    let nextId = 1;
-    let nextIdFromStorage = localStorage.getItem("nextId");
-    if (nextIdFromStorage != null) {
-      nextId = parseInt(nextIdFromStorage);
-    }
-    return nextId;
-  }
+  constructor() {}
 
   add(category: WordsCategory) {
-    let nextId = this.getNextId();
-
-    // save word category
-    category.id = nextId;
-    localStorage.setItem(category.id.toString(), JSON.stringify(category));
-
-    // save the nextID value
-    nextId++;
-    localStorage.setItem("nextId", nextId.toString())
+    //   let nextId = this.getNextId();
+    //   // save word category
+    //   category.id = nextId;
+    //   localStorage.setItem(category.id.toString(), JSON.stringify(category));
+    //   // save the nextID value
+    //   nextId++;
+    //   localStorage.setItem("nextId", nextId.toString())
+    // }
   }
 
-  delete(id: number) {
+  delete(id: string) {
     if (localStorage.getItem(id.toString()) != null) {
-      localStorage.removeItem(id.toString())
-    }
-    else {
-      throw new Error("delete() id " + id.toString() + " not found in localStorage");
+      localStorage.removeItem(id.toString());
+    } else {
+      throw new Error(
+        'delete() id ' + id.toString() + ' not found in localStorage'
+      );
     }
   }
 
@@ -42,36 +43,41 @@ export class ManageCategoriesService {
       localStorage.setItem(category.id.toString(), JSON.stringify(category));
       console.log(category);
       console.log(JSON.stringify(category));
-    }
-    else {
-      throw new Error("update() id " + category.id.toString() + " not found in localStorage");
+    } else {
+      throw new Error(
+        'update() id ' + category.id.toString() + ' not found in localStorage'
+      );
     }
   }
 
   get(id: number) {
-    let category = localStorage.getItem(id.toString())
+    // let cat = this.firestoreService.
+    let category = localStorage.getItem(id.toString());
     if (category != null) {
       return JSON.parse(category);
     }
-    throw new Error("get() id " + id.toString() + " not found in localStorage");
+    throw new Error('get() id ' + id.toString() + ' not found in localStorage');
   }
 
-  list() : WordsCategory[] {
-    let result = [];
-    let lastValidNumber = this.getNextId();
+  async list(): Promise<WordsCategory[]> {
+    const collectionConenction = collection(
+      this.firestoreService,
+      'Category'
+    ).withConverter(CategoryConverter);
+    console.log(collectionConenction);
 
-    for (let index = 0; index < lastValidNumber; index++) {
-      try {
-        let category = this.get(index);
-        if (category != null) {
-          result.push(category);
+    const querySnapshot = await getDocs(collectionConenction);
+    let result: WordsCategory[] = [];
+    querySnapshot.docs.forEach(
+      (oneDocument: DocumentSnapshot<WordsCategory>) => {
+        const data = oneDocument.data();
+        if (data) {
+          console.log(data);
+          result.push(data);
         }
-      } catch (error) {
-        console.log("list() error: " + error)
       }
-    }
+    );
 
     return result;
   }
 }
-

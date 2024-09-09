@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageCategoriesService } from '../shared/services/manage-categories.service'
+import { ManageCategoriesService } from '../shared/services/manage-categories.service';
 import { WordsCategory } from '../shared/model/words-category';
-import { FooterComponent } from "../footer/footer.component";
-import { HeaderComponent } from "../header/header.component";
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
 import { NgFor } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,25 +16,32 @@ import { MatOptionModule } from '@angular/material/core';
   standalone: true,
   templateUrl: './game-choice.component.html',
   styleUrl: './game-choice.component.css',
-  imports: [FooterComponent, HeaderComponent, NgFor, MatButtonModule, MatInputModule, MatSelectModule, MatFormFieldModule, MatOptionModule]
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    NgFor,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule,
+  ],
 })
 export class GameChoiceComponent implements OnInit {
-
   wordCategories: WordsCategory[] = [];
 
-  constructor(private mc: ManageCategoriesService, private router: Router) {
-  }
+  constructor(private mc: ManageCategoriesService, private router: Router) {}
 
   onPlayButton(wordsCategoryId: string) {
     if (wordsCategoryId == undefined) {
-      alert("please choose category");
+      alert('please choose category');
     } else {
       // Navigate to new game with selected category
       this.router.navigate(['newgame/' + wordsCategoryId]);
     }
   }
 
-  ngOnInit(): void {
-    this.wordCategories = this.mc.list();
+  async ngOnInit(): Promise<void> {
+    this.wordCategories = await this.mc.list();
   }
 }

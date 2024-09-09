@@ -64,8 +64,8 @@ export class MessyWordsGameComponent {
       this.mixCurrentWord();
     } else {
       this.category = new WordsCategory(
-        'name',
-        1,
+        'fake-name',
+        '1',
         LanguageEnum.English,
         LanguageEnum.Hebrew,
         []

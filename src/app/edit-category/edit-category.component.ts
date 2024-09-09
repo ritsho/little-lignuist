@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { FooterComponent } from "../footer/footer.component";
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatedWord } from '../shared/model/translated-word';
@@ -14,20 +14,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 
-
 @Component({
   selector: 'app-edit-category',
   standalone: true,
   templateUrl: './edit-category.component.html',
   styleUrl: './edit-category.component.css',
-  imports: [HeaderComponent, FooterComponent, FormsModule, CommonModule, NgFor, MatIconModule, MatFormFieldModule,
-    MatInputModule, MatButtonModule]
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    FormsModule,
+    CommonModule,
+    NgFor,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
 })
 export class EditCategoryComponent {
+  categoryToEdit: WordsCategory = new WordsCategory(
+    'temp-name',
+    '0',
+    LanguageEnum.Hebrew,
+    LanguageEnum.English,
+    []
+  );
 
-  categoryToEdit: WordsCategory = new WordsCategory("name", 0, LanguageEnum.Hebrew, LanguageEnum.English, []);
-
-  constructor(private route: ActivatedRoute, private mc: ManageCategoriesService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private mc: ManageCategoriesService,
+    private router: Router
+  ) {
     let id = this.route.snapshot.paramMap.get('categoryId');
     console.log(`id: ${id}`);
 
@@ -42,32 +59,36 @@ export class EditCategoryComponent {
         }
       }
     } catch (error) {
-      console.log(`error while getting details to edit id: ${id}`)
+      console.log(`error while getting details to edit id: ${id}`);
     }
   }
 
   onAddNewWord() {
-    this.categoryToEdit.words.push(new TranslatedWord("", ""));
+    this.categoryToEdit.words.push(new TranslatedWord('', ''));
   }
 
   deleteItem(translatedWord: TranslatedWord) {
-    let newArr = this.categoryToEdit.words.filter(item => item !== translatedWord);
+    let newArr = this.categoryToEdit.words.filter(
+      (item) => item !== translatedWord
+    );
     this.categoryToEdit.words = newArr;
   }
 
-  save() {
-    if (this.categoryToEdit.name == "") {
-      alert("Error - category must have a name");
+  async save() {
+    if (this.categoryToEdit.name == '') {
+      alert('Error - category must have a name');
       return;
     }
 
     // if this category is NEW
-    if (this.categoryToEdit.id == 0) {
-
+    if (this.categoryToEdit.id == '') {
       // check that this category name is NOT already exist
-      let existingCategory = this.mc.list().find(c => c.name == this.categoryToEdit.name);
+      let allCat = await this.mc.list();
+      let existingCategory = allCat.find(
+        (c) => c.name == this.categoryToEdit.name
+      );
       if (existingCategory !== undefined) {
-        alert("this category name already exist");
+        alert('this category name already exist');
         return;
       }
 
@@ -79,7 +100,9 @@ export class EditCategoryComponent {
       try {
         this.mc.update(this.categoryToEdit);
       } catch (error) {
-        console.log(`error while trying to update id: ${this.categoryToEdit.id}`);
+        console.log(
+          `error while trying to update id: ${this.categoryToEdit.id}`
+        );
       }
     }
 
