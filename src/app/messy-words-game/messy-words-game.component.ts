@@ -1,7 +1,12 @@
 import { PlayerSucceedComponent } from './../player-succeed/player-succeed.component';
 import { WordsCategory } from './../shared/model/words-category';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManageCategoriesService } from '../shared/services/manage-categories.service';
 import { ExitButtonComponent } from '../exit-button/exit-button.component';
@@ -32,8 +37,9 @@ import { TranslatedWord } from '../shared/model/translated-word';
   styleUrl: './messy-words-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessyWordsGameComponent {
+export class MessyWordsGameComponent implements OnInit {
   @Input() playerGuess: string = '';
+  categoryIdFromRoute: string | null = '';
   category: WordsCategory;
   wordIndex: number = 0;
   messyWord: string = '';
@@ -52,25 +58,38 @@ export class MessyWordsGameComponent {
     private dialog: MatDialog,
     private router: Router
   ) {
-    let categoryId = this.route.snapshot.paramMap.get('categoryId');
-    if (categoryId != null) {
-      this.category = this.mcs.get(parseInt(categoryId));
-      this.words = [...this.category.words].sort(() => Math.random() - 0.5);
+    this.categoryIdFromRoute = this.route.snapshot.paramMap.get('categoryId');
 
-      // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
-      this.pointsPerCorrect = Math.floor(100 / this.words.length);
+    this.category = new WordsCategory(
+      'fake-name',
+      '1',
+      LanguageEnum.English,
+      LanguageEnum.Hebrew,
+      []
+    );
+  }
 
-      // נערבב את המילה הראשונה
-      this.mixCurrentWord();
-    } else {
-      this.category = new WordsCategory(
-        'fake-name',
-        '1',
-        LanguageEnum.English,
-        LanguageEnum.Hebrew,
-        []
-      );
+  async ngOnInit() {
+    if (!this.categoryIdFromRoute) {
+      console.log('invalid category id selected:', this.categoryIdFromRoute);
+      return;
     }
+    let tempCateogry = await this.mcs.get(this.categoryIdFromRoute);
+    if (!tempCateogry) {
+      console.log(
+        'category id is valid, but not found in firebase:',
+        this.categoryIdFromRoute
+      );
+      return;
+    }
+    this.category = tempCateogry;
+    this.words = [...this.category.words].sort(() => Math.random() - 0.5);
+
+    // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
+    this.pointsPerCorrect = Math.floor(100 / this.words.length);
+
+    // נערבב את המילה הראשונה
+    this.mixCurrentWord();
   }
 
   resetGuess() {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,7 @@ import { LanguageEnum } from '../shared/model/language-enum';
     MatButtonModule,
   ],
 })
-export class EditCategoryComponent {
+export class EditCategoryComponent implements OnInit {
   categoryToEdit: WordsCategory = new WordsCategory(
     'temp-name',
     '0',
@@ -40,26 +40,31 @@ export class EditCategoryComponent {
     []
   );
 
+  idFromRoute: string | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private mc: ManageCategoriesService,
     private router: Router
   ) {
-    let id = this.route.snapshot.paramMap.get('categoryId');
-    console.log(`id: ${id}`);
+    this.idFromRoute = this.route.snapshot.paramMap.get('categoryId');
+    console.log(`id: ${this.idFromRoute}`);
+  }
 
+  async ngOnInit(): Promise<void> {
     try {
       // if we fail to get the id, we use the fallback (new category...)
-      if (id != null) {
-        console.log(`got id: ${id}`);
-        let idAsNumber = parseInt(id);
-        let wordsCategory = mc.get(idAsNumber);
+      if (this.idFromRoute != null) {
+        console.log(`got id: ${this.idFromRoute}`);
+        let wordsCategory = await this.mc.get(this.idFromRoute);
         if (wordsCategory != null) {
           this.categoryToEdit = wordsCategory;
         }
       }
     } catch (error) {
-      console.log(`error while getting details to edit id: ${id}`);
+      console.log(
+        `error while getting details to edit id: ${this.idFromRoute}`
+      );
     }
   }
 

@@ -66,7 +66,13 @@ export class SortWordsGameComponent implements OnInit {
   }
   async ngOnInit(): Promise<void> {
     if (this.categoryIdFromRoute != null) {
-      this.category = this.mcs.get(parseInt(this.categoryIdFromRoute));
+      let tempCategory = await this.mcs.get(this.categoryIdFromRoute);
+      if (!tempCategory) {
+        console.log('invalid category id: ', this.categoryIdFromRoute);
+        return;
+      }
+
+      this.category = tempCategory;
 
       let allCategories = await this.mcs.list();
       this.randomCategory = this.getRandomCateogory(

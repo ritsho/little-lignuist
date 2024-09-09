@@ -5,6 +5,8 @@ import {
   DocumentSnapshot,
   Firestore,
   getDocs,
+  getDoc,
+  doc,
 } from '@angular/fire/firestore';
 import { CategoryConverter } from '../converters/category-converter';
 
@@ -50,13 +52,21 @@ export class ManageCategoriesService {
     }
   }
 
-  get(id: number) {
-    // let cat = this.firestoreService.
-    let category = localStorage.getItem(id.toString());
-    if (category != null) {
-      return JSON.parse(category);
+  async get(id: string): Promise<WordsCategory | undefined> {
+    const docRef = doc(this.firestoreService, 'Category', id).withConverter(
+      CategoryConverter
+    );
+
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const category = docSnap.data() as WordsCategory;
+      console.log('Category data:', category);
+      return category;
+    } else {
+      console.log('No such Category!');
+      return undefined;
     }
-    throw new Error('get() id ' + id.toString() + ' not found in localStorage');
   }
 
   async list(): Promise<WordsCategory[]> {
@@ -64,7 +74,6 @@ export class ManageCategoriesService {
       this.firestoreService,
       'Category'
     ).withConverter(CategoryConverter);
-    console.log(collectionConenction);
 
     const querySnapshot = await getDocs(collectionConenction);
     let result: WordsCategory[] = [];
@@ -72,7 +81,6 @@ export class ManageCategoriesService {
       (oneDocument: DocumentSnapshot<WordsCategory>) => {
         const data = oneDocument.data();
         if (data) {
-          console.log(data);
           result.push(data);
         }
       }

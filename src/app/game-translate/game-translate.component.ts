@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterComponent } from "../footer/footer.component";
-import { HeaderComponent } from "../header/header.component";
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
 import { WordsCategory } from '../shared/model/words-category';
 import { ManageCategoriesService } from '../shared/services/manage-categories.service';
 import { NgFor, CommonModule } from '@angular/common';
@@ -18,48 +18,72 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-
 @Component({
   selector: 'app-game-translate',
   standalone: true,
   templateUrl: './game-translate.component.html',
   styleUrl: './game-translate.component.css',
-  imports: [FooterComponent, HeaderComponent, NgFor, CommonModule, MatButtonModule, MatInputModule,
-    MatSelectModule, MatFormFieldModule, MatOptionModule, FormsModule, MatIconModule,
-    MatDividerModule, MatListModule, MatTableModule, MatSlideToggleModule]
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    NgFor,
+    CommonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    FormsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule,
+    MatTableModule,
+    MatSlideToggleModule,
+  ],
 })
 export class GameTranslateComponent implements OnInit {
   wordsCategory!: WordsCategory;
   gameWords: GameWords[] = [];
-  displayedColumns: string[] = ['origin-col', 'userinput-col', 'is-correct-col'];
+  displayedColumns: string[] = [
+    'origin-col',
+    'userinput-col',
+    'is-correct-col',
+  ];
   isCheckButtonWasClicked: boolean = false;
   checkMessage: string = '';
   isShowTranslation: boolean = false;
 
-  constructor(private mc: ManageCategoriesService, private activatedRoute: ActivatedRoute) {
-   
-  }
+  constructor(
+    private mc: ManageCategoriesService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     let id = this.activatedRoute.snapshot.paramMap.get('categoryId');
     if (id != null) {
-      this.wordsCategory = this.mc.get(parseInt(id));
+      let tempCategory = await this.mc.get(id);
+      if (!tempCategory) {
+        console.log('invalid category id: ', id);
+        return;
+      }
+      this.wordsCategory = tempCategory;
 
       //copy all words to the new array
-      this.wordsCategory.words.forEach(translatedWord => {
-        this.gameWords.push(new GameWords(translatedWord.origin, translatedWord.target));
+      this.wordsCategory.words.forEach((translatedWord) => {
+        this.gameWords.push(
+          new GameWords(translatedWord.origin, translatedWord.target)
+        );
       });
-    };
+    }
   }
 
-
   onCheck() {
-    // it will show the emoji 
+    // it will show the emoji
     this.isCheckButtonWasClicked = true;
 
     let correctGuess = 0;
 
-    this.gameWords.forEach(item => {
+    this.gameWords.forEach((item) => {
       if (item.target == item.userinput) {
         item.isCorrect = true;
         correctGuess++;
@@ -70,7 +94,7 @@ export class GameTranslateComponent implements OnInit {
 
     // if everything is correct
     if (correctGuess == this.gameWords.length) {
-      this.checkMessage = "Well done, You finished!!!";
+      this.checkMessage = 'Well done, You finished!!!';
     } else {
       this.checkMessage = `You translated ${correctGuess} our of ${this.gameWords.length} words correctly, try again`;
     }
