@@ -1,7 +1,12 @@
 import { ManageCategoriesService } from './../shared/services/manage-categories.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 import { TranslatedWord } from '../shared/model/translated-word';
@@ -71,7 +76,6 @@ export class SortWordsGameComponent implements OnInit {
         console.log('invalid category id: ', this.categoryIdFromRoute);
         return;
       }
-
       this.category = tempCategory;
 
       const allCategories = await this.mcs.list();

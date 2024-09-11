@@ -4,7 +4,7 @@ import {
   SnapshotOptions,
 } from '@angular/fire/firestore';
 import { WordsCategory } from '../model/words-category';
-import { LanguageEnum } from '../model/language-enum';
+import { LanguageEnum, LanguageEnumConverter } from '../model/language-enum';
 
 export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
   // בשמירה צריך להמיר ל JSON
@@ -25,13 +25,16 @@ export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
     options: SnapshotOptions
   ): WordsCategory => {
     const data = snapshot.data(options);
-    console.log('fromFirestore', data);
     return {
       id: snapshot.id,
       name: data['name'],
       lastChangeDate: data['lastChangeDate'].toDate(),
-      targetLang: data['targetLang'],
-      originLang: data['originLang'],
+      targetLang: LanguageEnumConverter.getLangFromInt(
+        <number>data['targetLang']
+      ) as LanguageEnum,
+      originLang: LanguageEnumConverter.getLangFromInt(
+        <number>data['originLang']
+      ) as LanguageEnum,
       words: data['words'],
     };
   },
