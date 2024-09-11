@@ -10,29 +10,20 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, ExitDialogComponent],
   templateUrl: './exit-button.component.html',
-  styleUrl: './exit-button.component.css'
+  styleUrl: './exit-button.component.css',
 })
 export class ExitButtonComponent {
-  constructor(private router: Router, private dialog: MatDialog){
+  constructor(private router: Router, private dialog: MatDialog) {}
 
-  }
-
-  exitGame(){
+  exitGame() {
     const exitDialog = this.dialog.open(ExitDialogComponent, {
-      data: {  },
+      data: {},
     });
 
-    exitDialog.afterClosed().subscribe(result => {
-      try {
-        if (result == true) {
-          
-        }  
-      } catch (error) {
-        console.log(`error while exit: ${error}`)
-      }
-      
+    exitDialog.afterClosed().subscribe((result) => {
+      console.log(`exit dialog result: ${result}`);
     });
 
-    console.log("Exit Game");
+    console.log('Exit Game');
   }
 }

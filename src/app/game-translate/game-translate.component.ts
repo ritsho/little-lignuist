@@ -59,9 +59,9 @@ export class GameTranslateComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    let id = this.activatedRoute.snapshot.paramMap.get('categoryId');
+    const id = this.activatedRoute.snapshot.paramMap.get('categoryId');
     if (id != null) {
-      let tempCategory = await this.mc.get(id);
+      const tempCategory = await this.mc.get(id);
       if (!tempCategory) {
         console.log('invalid category id: ', id);
         return;

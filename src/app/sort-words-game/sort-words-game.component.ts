@@ -1,5 +1,5 @@
 import { ManageCategoriesService } from './../shared/services/manage-categories.service';
-import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WordsCategory } from '../shared/model/words-category';
@@ -66,7 +66,7 @@ export class SortWordsGameComponent implements OnInit {
   }
   async ngOnInit(): Promise<void> {
     if (this.categoryIdFromRoute != null) {
-      let tempCategory = await this.mcs.get(this.categoryIdFromRoute);
+      const tempCategory = await this.mcs.get(this.categoryIdFromRoute);
       if (!tempCategory) {
         console.log('invalid category id: ', this.categoryIdFromRoute);
         return;
@@ -74,14 +74,14 @@ export class SortWordsGameComponent implements OnInit {
 
       this.category = tempCategory;
 
-      let allCategories = await this.mcs.list();
+      const allCategories = await this.mcs.list();
       this.randomCategory = this.getRandomCateogory(
         this.category,
         allCategories
       );
 
       this.words = this.getWordsFromCategory(this.category, 3);
-      let randomWordsFromOther = this.getWordsFromCategory(
+      const randomWordsFromOther = this.getWordsFromCategory(
         this.randomCategory,
         3
       );
@@ -102,7 +102,7 @@ export class SortWordsGameComponent implements OnInit {
     allCategories: WordsCategory[]
   ): WordsCategory {
     allCategories = allCategories.filter((c) => c.id != category.id);
-    let randomCategory =
+    const randomCategory =
       allCategories[Math.floor(Math.random() * allCategories.length)];
     return randomCategory;
   }
@@ -111,7 +111,7 @@ export class SortWordsGameComponent implements OnInit {
     category: WordsCategory,
     count: number
   ): TranslatedWord[] {
-    let randomWords = category.words
+    const randomWords = category.words
       .sort(() => Math.random() - 0.5)
       .slice(0, count);
     return randomWords;
@@ -149,7 +149,11 @@ export class SortWordsGameComponent implements OnInit {
   onPlayerGuess(guess: boolean) {
     // נשמור את הניחוש
     this.guesses[this.currentWordIndex] = guess;
-    let isCorrect = this.isGuessCorrect(this.currentWord, this.category, guess);
+    const isCorrect = this.isGuessCorrect(
+      this.currentWord,
+      this.category,
+      guess
+    );
 
     if (isCorrect) {
       this.points += this.pointsPerCorrect;

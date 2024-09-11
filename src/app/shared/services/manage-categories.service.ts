@@ -18,7 +18,8 @@ export class ManageCategoriesService {
 
   constructor() {}
 
-  add(category: WordsCategory) {
+  async add(category: WordsCategory): Promise<void> {
+    console.log(category);
     //   let nextId = this.getNextId();
     //   // save word category
     //   category.id = nextId;
@@ -30,26 +31,28 @@ export class ManageCategoriesService {
   }
 
   delete(id: string) {
-    if (localStorage.getItem(id.toString()) != null) {
-      localStorage.removeItem(id.toString());
-    } else {
-      throw new Error(
-        'delete() id ' + id.toString() + ' not found in localStorage'
-      );
-    }
+    console.log('delete id ', id);
+    // if (localStorage.getItem(id.toString()) != null) {
+    //   localStorage.removeItem(id.toString());
+    // } else {
+    //   throw new Error(
+    //     'delete() id ' + id.toString() + ' not found in localStorage'
+    //   );
+    // }
   }
 
   update(category: WordsCategory) {
-    if (localStorage.getItem(category.id.toString()) != null) {
-      category.lastChangeDate = new Date();
-      localStorage.setItem(category.id.toString(), JSON.stringify(category));
-      console.log(category);
-      console.log(JSON.stringify(category));
-    } else {
-      throw new Error(
-        'update() id ' + category.id.toString() + ' not found in localStorage'
-      );
-    }
+    console.log('update category', category);
+    // if (localStorage.getItem(category.id.toString()) != null) {
+    //   category.lastChangeDate = new Date();
+    //   localStorage.setItem(category.id.toString(), JSON.stringify(category));
+    //   console.log(category);
+    //   console.log(JSON.stringify(category));
+    // } else {
+    //   throw new Error(
+    //     'update() id ' + category.id.toString() + ' not found in localStorage'
+    //   );
+    // }
   }
 
   async get(id: string): Promise<WordsCategory | undefined> {
@@ -76,7 +79,7 @@ export class ManageCategoriesService {
     ).withConverter(CategoryConverter);
 
     const querySnapshot = await getDocs(collectionConenction);
-    let result: WordsCategory[] = [];
+    const result: WordsCategory[] = [];
     querySnapshot.docs.forEach(
       (oneDocument: DocumentSnapshot<WordsCategory>) => {
         const data = oneDocument.data();

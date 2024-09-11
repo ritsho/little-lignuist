@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  Injectable,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,9 +13,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 
-@Injectable({
-  providedIn: 'root',
-})
 @Component({
   selector: 'app-categories-table',
   standalone: true,
@@ -83,7 +74,7 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
 
   newCategory(): void {
     console.log('adding test item');
-    let newItem = new WordsCategory(
+    const newItem = new WordsCategory(
       'test',
       (this.myData.data.length + 1).toString(),
       LanguageEnum.English,

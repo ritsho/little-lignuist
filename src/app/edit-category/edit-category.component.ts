@@ -56,7 +56,7 @@ export class EditCategoryComponent implements OnInit {
       // if we fail to get the id, we use the fallback (new category...)
       if (this.idFromRoute != null) {
         console.log(`got id: ${this.idFromRoute}`);
-        let wordsCategory = await this.mc.get(this.idFromRoute);
+        const wordsCategory = await this.mc.get(this.idFromRoute);
         if (wordsCategory != null) {
           this.categoryToEdit = wordsCategory;
         }
@@ -73,7 +73,7 @@ export class EditCategoryComponent implements OnInit {
   }
 
   deleteItem(translatedWord: TranslatedWord) {
-    let newArr = this.categoryToEdit.words.filter(
+    const newArr = this.categoryToEdit.words.filter(
       (item) => item !== translatedWord
     );
     this.categoryToEdit.words = newArr;
@@ -88,8 +88,8 @@ export class EditCategoryComponent implements OnInit {
     // if this category is NEW
     if (this.categoryToEdit.id == '') {
       // check that this category name is NOT already exist
-      let allCat = await this.mc.list();
-      let existingCategory = allCat.find(
+      const allCat = await this.mc.list();
+      const existingCategory = allCat.find(
         (c) => c.name == this.categoryToEdit.name
       );
       if (existingCategory !== undefined) {

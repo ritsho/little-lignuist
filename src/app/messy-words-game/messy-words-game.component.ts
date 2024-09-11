@@ -74,7 +74,7 @@ export class MessyWordsGameComponent implements OnInit {
       console.log('invalid category id selected:', this.categoryIdFromRoute);
       return;
     }
-    let tempCateogry = await this.mcs.get(this.categoryIdFromRoute);
+    const tempCateogry = await this.mcs.get(this.categoryIdFromRoute);
     if (!tempCateogry) {
       console.log(
         'category id is valid, but not found in firebase:',
@@ -97,7 +97,7 @@ export class MessyWordsGameComponent implements OnInit {
   }
 
   mixCurrentWord() {
-    let origWord = this.words[this.wordIndex].origin;
+    const origWord = this.words[this.wordIndex].origin;
     let tempWord = origWord;
     while (tempWord == origWord) {
       tempWord = [...origWord].sort(() => Math.random() - 0.5).join('');

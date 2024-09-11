@@ -1,6 +1,10 @@
 <div class="container">
-  <mat-card class="card-container" *ngFor="let game of games" (click)="choosegame(game)">
-    <img [src]="game.imageUrl">
+  <mat-card
+    class="card-container"
+    *ngFor="let game of games"
+    (click)="choosegame(game)"
+  >
+    <img [src]="game.imageUrl" [alt]="game.description" />
     <mat-card-header>
       <mat-card-title>{{ game.name }}</mat-card-title>
     </mat-card-header>
@@ -8,5 +12,4 @@
       <p>{{ game.description }}</p>
     </mat-card-content>
   </mat-card>
-  
 </div>

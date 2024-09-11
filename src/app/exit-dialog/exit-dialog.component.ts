@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exit-dialog',
@@ -11,8 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './exit-dialog.component.css',
 })
 export class ExitDialogComponent {
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   navigateToMain() {
     this.router.navigate(['choose-game']);

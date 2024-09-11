@@ -1,6 +1,6 @@
 import { WordsCategory } from './../shared/model/words-category';
 import { ManageCategoriesService } from './../shared/services/manage-categories.service';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { NgFor, DatePipe } from '@angular/common';
@@ -47,8 +47,8 @@ export class ChooseCategoryDialogComponent implements OnInit {
       this.selectedGameProfile != undefined &&
       this.selectedCategory != undefined
     ) {
-      let gameUrl = this.selectedGameProfile.url;
-      let category = this.selectedCategory.id;
+      const gameUrl = this.selectedGameProfile.url;
+      const category = this.selectedCategory.id;
       this.router.navigate([gameUrl, category]);
     }
   }

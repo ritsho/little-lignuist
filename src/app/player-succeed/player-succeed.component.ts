@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogClose } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-export interface PlayerSucceedData{
-  isWin : boolean;
+export interface PlayerSucceedData {
+  isWin: boolean;
 }
 
 @Component({
   selector: 'app-player-succeed',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule,CommonModule, MatDialogClose],
+  imports: [MatButtonModule, MatIconModule, CommonModule, MatDialogClose],
   templateUrl: './player-succeed.component.html',
   styleUrl: './player-succeed.component.css',
 })
@@ -22,7 +22,5 @@ export class PlayerSucceedComponent {
     this.isWin = data.isWin;
   }
 
-  onClick(){
-
-  }
+  onClick() {}
 }

@@ -1,58 +1,75 @@
 <div class="game-container">
+  <h1 class="title">Translate - {{ wordsCategory.name }}</h1>
 
-    <h1 class="title">Translate - {{wordsCategory.name}} </h1>
+  <div>
+    <span>Category ID:</span>
+    <mat-form-field>
+      <input matInput value="{{ wordsCategory.id }}" disabled />
+    </mat-form-field>
+  </div>
 
-    <div>
-        <span>Category ID:</span>
-        <mat-form-field >
-            <input matInput value="{{wordsCategory.id}}" disabled>
+  <table mat-table [dataSource]="gameWords" class="mat-elevation-z8 mid-table">
+    <ng-container matColumnDef="origin-col">
+      <th mat-header-cell *matHeaderCellDef class="center-text">
+        English Word
+      </th>
+      <td mat-cell *matCellDef="let gameWord" class="center-text">
+        {{ gameWord.origin }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="userinput-col">
+      <th mat-header-cell *matHeaderCellDef class="center-text">Hebrew Word</th>
+      <td mat-cell *matCellDef="let gameWord" class="center-text">
+        <!-- regular user input -->
+        <mat-form-field *ngIf="isShowTranslation === false">
+          <mat-label>Hebrew word here...</mat-label>
+
+          <input
+            matInput
+            [(ngModel)]="gameWord.userinput"
+            pattern="^[א-ת]+$"
+            #userInputWord="ngModel"
+          />
+          <mat-error *ngIf="userInputWord.invalid">
+            Word must be in Hebrew letters only
+          </mat-error>
         </mat-form-field>
-    </div>
 
-    <table mat-table [dataSource]="gameWords" class="mat-elevation-z8 mid-table">
-        <ng-container matColumnDef="origin-col">
-            <th mat-header-cell *matHeaderCellDef class="center-text"> English Word </th>
-            <td mat-cell *matCellDef="let gameWord" class="center-text"> {{gameWord.origin}} </td>
-        </ng-container>
+        <!-- real translation - show only if the button is pressed -->
+        <p *ngIf="isShowTranslation === true">{{ gameWord.target }}</p>
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="userinput-col">
-            <th mat-header-cell *matHeaderCellDef class="center-text"> Hebrew Word </th>
-            <td mat-cell *matCellDef="let gameWord" class="center-text">
-                <!-- regular user input -->
-                <mat-form-field *ngIf="isShowTranslation == false">
-                    <mat-label>Hebrew word here...</mat-label>
+    <ng-container matColumnDef="is-correct-col">
+      <th mat-header-cell *matHeaderCellDef class="center-text"></th>
+      <td mat-cell *matCellDef="let gameWord" class="center-text">
+        <div class="{{ isCheckButtonWasClicked ? '' : 'hide-me' }}">
+          <img
+            height="50px"
+            [alt]="gameWord.isCorrect"
+            [src]="
+              gameWord.isCorrect
+                ? 'assets/partying-face-joypixels.gif'
+                : 'assets/image/slide_3.jpg'
+            "
+          />
+        </div>
+      </td>
+    </ng-container>
 
-                    <input matInput [(ngModel)]="gameWord.userinput" pattern="^[א-ת]+$" #userInputWord="ngModel">
-                    <mat-error *ngIf="userInputWord.invalid">
-                        Word must be in Hebrew letters only
-                    </mat-error>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 
-                </mat-form-field>
+  <div class="buttons-container">
+    <button mat-raised-button color="primary" type="button" (click)="onCheck()">
+      Check
+    </button>
+    <mat-slide-toggle color="primary" [(ngModel)]="isShowTranslation"
+      >Show Translation</mat-slide-toggle
+    >
+  </div>
 
-                <!-- real translation - show only if the button is pressed -->
-                <p *ngIf="isShowTranslation == true">{{gameWord.target}}</p>
-
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="is-correct-col">
-            <th mat-header-cell *matHeaderCellDef class="center-text">  </th>
-            <td mat-cell *matCellDef="let gameWord" class="center-text">
-                <div class="{{isCheckButtonWasClicked ? '' : 'hide-me' }}">
-                    <img height="50px"
-                        [src]="gameWord.isCorrect ? 'assets/partying-face-joypixels.gif' : 'assets/image/slide_3.jpg'">
-                </div>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <div class="buttons-container">
-        <button mat-raised-button color="primary" type="button" (click)="onCheck()">Check</button>
-        <mat-slide-toggle color="primary" [(ngModel)]="isShowTranslation" >Show Translation</mat-slide-toggle>
-    </div>
-
-    <div> {{checkMessage}} </div>
+  <div>{{ checkMessage }}</div>
 </div>

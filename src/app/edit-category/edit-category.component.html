@@ -1,53 +1,102 @@
 <form class="container" #myForm="ngForm">
-    <div class="main-category-name">
-        <label class="my-label">Category Name:</label>
-        <mat-form-field>
-            <input matInput [(ngModel)]="categoryToEdit.name" name="categoryName" maxlength="50" minlength="1" required>
-        </mat-form-field>
-    </div>
-    <div>
-        <label for="sourceLang" class="my-label">Source Language:</label>
-        <mat-form-field>
-            <input matInput [(ngModel)]="categoryToEdit.originLang" name="originLang" maxlength="50" minlength="1"
-                required disabled="true">
-        </mat-form-field>
-    </div>
-    <div>
-        <span for="targetLang" class="my-label">Target Language:</span>
-        <mat-form-field>
-            <input matInput [(ngModel)]="categoryToEdit.targetLang" name="targetLang" maxlength="50" minlength="1"
-                required disabled="true">
-        </mat-form-field>
-    </div>
+  <div class="main-category-name">
+    <label class="my-label" for="inputcategory">Category Name:</label>
+    <mat-form-field>
+      <input
+        id="inputcategory"
+        matInput
+        [(ngModel)]="categoryToEdit.name"
+        name="categoryName"
+        maxlength="50"
+        minlength="1"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <label for="sourceLang" class="my-label">Source Language:</label>
+    <mat-form-field>
+      <input
+        id="sourceLang"
+        matInput
+        [(ngModel)]="categoryToEdit.originLang"
+        name="originLang"
+        maxlength="50"
+        minlength="1"
+        required
+        disabled="true"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <span for="targetLang" class="my-label">Target Language:</span>
+    <mat-form-field>
+      <input
+        id="targetLang"
+        matInput
+        [(ngModel)]="categoryToEdit.targetLang"
+        name="targetLang"
+        maxlength="50"
+        minlength="1"
+        required
+        disabled="true"
+      />
+    </mat-form-field>
+  </div>
 
-    <div class="wordsMargin">
-        <label for="words" class="my-label my-words-label">Words:</label>
-        <button (click)="onAddNewWord()" mat-raised-button> + Add new word</button>
-        <div *ngFor="let tw of categoryToEdit.words; let i = index">
-            <label class="my-label">Origin</label>
-            <mat-form-field>
-                <input matInput [(ngModel)]="tw.origin" name="origin{{i}}" maxlength="50" minlength="1"
-                    required pattern="^[A-Za-z]+$" #originWord="ngModel">
-                <mat-error *ngIf="originWord.invalid">
-                    Word must be in English letters only
-                </mat-error>
-            </mat-form-field>
+  <div class="wordsMargin">
+    <label for="words" class="my-label my-words-label">Words:</label>
+    <button (click)="onAddNewWord()" mat-raised-button>+ Add new word</button>
+    <div *ngFor="let tw of categoryToEdit.words; let i = index">
+      <label for="inputorigin" class="my-label">Origin</label>
+      <mat-form-field>
+        <input
+          id="inputorigin"
+          matInput
+          [(ngModel)]="tw.origin"
+          name="origin{{ i }}"
+          maxlength="50"
+          minlength="1"
+          required
+          pattern="^[A-Za-z]+$"
+          #originWord="ngModel"
+        />
+        <mat-error *ngIf="originWord.invalid">
+          Word must be in English letters only
+        </mat-error>
+      </mat-form-field>
 
-            <label class="my-label">Target</label>
-            <mat-form-field>
-                <input matInput [(ngModel)]="tw.target" name="target{{i}}" maxlength="50" minlength="1"
-                    required pattern="^[א-ת]+$" #targetWord="ngModel">
-                <mat-error *ngIf="targetWord.invalid">
-                    Word must be in Hebrew letters only
-                </mat-error>
-            </mat-form-field>
+      <label for="inputtarget" class="my-label">Target</label>
+      <mat-form-field>
+        <input
+          id="inputtarget"
+          matInput
+          [(ngModel)]="tw.target"
+          name="target{{ i }}"
+          maxlength="50"
+          minlength="1"
+          required
+          pattern="^[א-ת]+$"
+          #targetWord="ngModel"
+        />
+        <mat-error *ngIf="targetWord.invalid">
+          Word must be in Hebrew letters only
+        </mat-error>
+      </mat-form-field>
 
-            <button class="space-me" (click)="deleteItem(tw)" mat-button>
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
+      <button class="space-me" (click)="deleteItem(tw)" mat-button>
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
+  </div>
 
-    <button type="submit" mat-raised-button color="primary" (click)="save()"
-        [disabled]="myForm.invalid || categoryToEdit.words.length === 0">Save</button>
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="save()"
+    [disabled]="myForm.invalid || categoryToEdit.words.length === 0"
+  >
+    Save
+  </button>
 </form>

@@ -27,4 +27,5 @@ export const routes: Routes = [
   { path: 'game-translate/:categoryId', component: GameTranslateComponent },
   { path: 'messy-game-over', component: MessyGameOverComponent },
   { path: 'sort-game-over', component: SortGameOverComponent },
+  { path: 'dashboard', component: DasboardComponent },
 ];
