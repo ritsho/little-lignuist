@@ -1,12 +1,7 @@
 import { ManageCategoriesService } from './../shared/services/manage-categories.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WordsCategory } from '../shared/model/words-category';
 import { LanguageEnum } from '../shared/model/language-enum';
 import { TranslatedWord } from '../shared/model/translated-word';
@@ -29,7 +24,7 @@ import { ExitButtonComponent } from '../exit-button/exit-button.component';
   ],
   templateUrl: './sort-words-game.component.html',
   styleUrl: './sort-words-game.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SortWordsGameComponent implements OnInit {
   public category: WordsCategory;

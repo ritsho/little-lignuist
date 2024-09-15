@@ -9,7 +9,7 @@ import { LanguageEnum, LanguageEnumConverter } from '../model/language-enum';
 export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
   // בשמירה צריך להמיר ל JSON
   toFirestore: (wordsCategory: WordsCategory) => {
-    const wordsObj = Object.entries(wordsCategory.words).map(([id, words]) => ({
+    const wordsObj = Object.entries(wordsCategory.words).map(([_, words]) => ({
       origin: words.origin,
       target: words.target,
     }));

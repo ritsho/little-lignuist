@@ -41,7 +41,9 @@ export class MessyGameOverComponent {
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    this.dataFromGame = navigation?.extras?.state?.['data'] as MessyGameOverData;
+    this.dataFromGame = navigation?.extras?.state?.[
+      'data'
+    ] as MessyGameOverData;
 
     // עבור כל צמד מילים
     this.dataSource = this.dataFromGame.words.map((translatedword, index) => ({

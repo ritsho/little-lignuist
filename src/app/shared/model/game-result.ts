@@ -1,6 +1,8 @@
 export class GameResult {
-  categoryId: string = '';
-  gameId: number = 0;
-  date: Date = new Date();
-  score: number = 0;
+  constructor(
+    public categoryId: string = '',
+    public gameId: number = 0,
+    public score: number = 0,
+    public date: Date = new Date()
+  ) {}
 }

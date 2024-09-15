@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   imports: [MatIconModule, MatButtonModule, MatToolbarModule, RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class FooterComponent {
 

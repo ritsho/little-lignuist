@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   imports: [CommonModule, MatCardModule],
   templateUrl: './choose-game.component.html',
   styleUrl: './choose-game.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ChooseGameComponent implements OnInit {
   public games: GameProfile[] = [];

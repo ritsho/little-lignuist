@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   ],
   templateUrl: './dasboard.component.html',
   styleUrl: './dasboard.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DasboardComponent { }

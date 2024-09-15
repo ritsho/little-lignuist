@@ -3,6 +3,7 @@ import { WordsCategory } from './../shared/model/words-category';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -19,6 +20,9 @@ import { LanguageEnum } from '../shared/model/language-enum';
 import { MatDialog } from '@angular/material/dialog';
 import { GamePointsComponent } from '../game-points/game-points.component';
 import { TranslatedWord } from '../shared/model/translated-word';
+import { ManageGameResultsService } from '../shared/services/manage-gameresult';
+import { GameResult } from '../shared/model/game-result';
+import { GameIdsEnum } from '../shared/model/game-ids';
 
 @Component({
   selector: 'app-messy-words-game',
@@ -35,7 +39,7 @@ import { TranslatedWord } from '../shared/model/translated-word';
   ],
   templateUrl: './messy-words-game.component.html',
   styleUrl: './messy-words-game.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class MessyWordsGameComponent implements OnInit {
   @Input() playerGuess: string = '';
@@ -55,8 +59,10 @@ export class MessyWordsGameComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mcs: ManageCategoriesService,
+    private mgr: ManageGameResultsService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.categoryIdFromRoute = this.route.snapshot.paramMap.get('categoryId');
 
@@ -69,7 +75,7 @@ export class MessyWordsGameComponent implements OnInit {
     );
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     if (!this.categoryIdFromRoute) {
       console.log('invalid category id selected:', this.categoryIdFromRoute);
       return;
@@ -131,7 +137,7 @@ export class MessyWordsGameComponent implements OnInit {
     this.mixCurrentWord();
   }
 
-  goToNextSomething() {
+  async goToNextSomething(): Promise<void> {
     // אם השחקן לא כתב ניחוש בכלל
     if (this.playerGuess == '') {
       // אין צורך לעשות דבר - נצא מהמתודה
@@ -148,7 +154,7 @@ export class MessyWordsGameComponent implements OnInit {
       // סופרים כמה פעמים הוא צדק כדי להציג במסך הסיכום
       this.correctGuesses++;
 
-      console.log('adding ', Math.floor(100 / this.words.length));
+      console.log('adding ', this.pointsPerCorrect);
       // נשתמש בכמות הנקודות שחישבנו בהתחלה
       this.points += this.pointsPerCorrect;
     }
@@ -159,14 +165,19 @@ export class MessyWordsGameComponent implements OnInit {
     // אם אנחנו במילה האחרונה
     if (this.wordIndex == this.words.length - 1) {
       // נציג את מסך הסיכום
-      this.goToGameOver();
+      await this.goToGameOver();
     } else {
       // נעבור למילה הבאה
       this.showNextWord();
     }
   }
 
-  goToGameOver() {
+  async goToGameOver(): Promise<void> {
+    this.mgr.addGameResult(
+      new GameResult(this.category.id, GameIdsEnum.MessyGame, this.points)
+    );
+
+    this.dialog.open(GamePointsComponent, { data: { points: this.points } });
     this.router.navigate(['/messy-game-over'], {
       state: {
         data: {
