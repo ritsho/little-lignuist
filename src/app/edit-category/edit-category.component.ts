@@ -34,7 +34,7 @@ import { LanguageEnum } from '../shared/model/language-enum';
 export class EditCategoryComponent implements OnInit {
   categoryToEdit: WordsCategory = new WordsCategory(
     'temp-name',
-    '0',
+    '',
     LanguageEnum.Hebrew,
     LanguageEnum.English,
     []
@@ -98,12 +98,12 @@ export class EditCategoryComponent implements OnInit {
       }
 
       // update the ID, and save
-      this.mc.add(this.categoryToEdit);
+      await this.mc.add(this.categoryToEdit);
     }
     // if it's an EXISTING cateogry
     else {
       try {
-        this.mc.update(this.categoryToEdit);
+        await this.mc.update(this.categoryToEdit);
       } catch (error) {
         console.log(
           `error while trying to update id: ${this.categoryToEdit.id}`

@@ -9,6 +9,7 @@ import {
   doc,
 } from '@angular/fire/firestore';
 import { CategoryConverter } from '../converters/category-converter';
+import { addDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -20,17 +21,15 @@ export class ManageCategoriesService {
 
   async add(category: WordsCategory): Promise<void> {
     console.log(category);
-    //   let nextId = this.getNextId();
-    //   // save word category
-    //   category.id = nextId;
-    //   localStorage.setItem(category.id.toString(), JSON.stringify(category));
-    //   // save the nextID value
-    //   nextId++;
-    //   localStorage.setItem("nextId", nextId.toString())
-    // }
+    const collectionConenction = collection(
+      this.firestoreService,
+      'Category'
+    ).withConverter(CategoryConverter);
+
+    await addDoc(collectionConenction, category);
   }
 
-  delete(id: string) {
+  async delete(id: string): Promise<void> {
     console.log('delete id ', id);
     // if (localStorage.getItem(id.toString()) != null) {
     //   localStorage.removeItem(id.toString());
@@ -41,7 +40,7 @@ export class ManageCategoriesService {
     // }
   }
 
-  update(category: WordsCategory) {
+  async update(category: WordsCategory): Promise<void> {
     console.log('update category', category);
     // if (localStorage.getItem(category.id.toString()) != null) {
     //   category.lastChangeDate = new Date();

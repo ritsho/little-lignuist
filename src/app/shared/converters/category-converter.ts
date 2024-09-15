@@ -9,14 +9,23 @@ import { LanguageEnum, LanguageEnumConverter } from '../model/language-enum';
 export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
   // בשמירה צריך להמיר ל JSON
   toFirestore: (wordsCategory: WordsCategory) => {
-    console.log('toFirestore', wordsCategory);
+    const wordsObj = Object.entries(wordsCategory.words).map(([id, words]) => ({
+      origin: words.origin,
+      target: words.target,
+    }));
+    console.log('toFirestore', wordsObj);
+
     return {
       name: wordsCategory.name,
       // id: wordsCategory.id,
       lastChangeDate: wordsCategory.lastChangeDate,
-      targetLang: <LanguageEnum>wordsCategory.targetLang,
-      originLang: <LanguageEnum>wordsCategory.originLang,
-      words: wordsCategory.words,
+      targetLang: LanguageEnumConverter.getIntFromLang(
+        wordsCategory.targetLang
+      ),
+      originLang: LanguageEnumConverter.getIntFromLang(
+        wordsCategory.originLang
+      ),
+      words: wordsObj,
     };
   },
   // בטעינה צריך להמיר מ JSON

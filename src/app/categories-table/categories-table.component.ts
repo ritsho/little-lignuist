@@ -72,7 +72,7 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
     this.router.navigate(['edit-category/' + itemToEdit.id]);
   }
 
-  newCategory(): void {
+  async newCategory(): Promise<void> {
     console.log('adding test item');
     const newItem = new WordsCategory(
       'test',
@@ -82,7 +82,7 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
       []
     );
 
-    this.mc.add(newItem);
+    await this.mc.add(newItem);
     this.refreshData();
   }
 
