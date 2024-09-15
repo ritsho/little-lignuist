@@ -7,9 +7,11 @@ import {
   getDocs,
   getDoc,
   doc,
+  addDoc,
+  setDoc,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { CategoryConverter } from '../converters/category-converter';
-import { addDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,6 @@ export class ManageCategoriesService {
   constructor() {}
 
   async add(category: WordsCategory): Promise<void> {
-    console.log(category);
     const collectionConenction = collection(
       this.firestoreService,
       'Category'
@@ -30,28 +31,22 @@ export class ManageCategoriesService {
   }
 
   async delete(id: string): Promise<void> {
-    console.log('delete id ', id);
-    // if (localStorage.getItem(id.toString()) != null) {
-    //   localStorage.removeItem(id.toString());
-    // } else {
-    //   throw new Error(
-    //     'delete() id ' + id.toString() + ' not found in localStorage'
-    //   );
-    // }
+    await deleteDoc(doc(this.firestoreService, 'Category', id));
   }
 
   async update(category: WordsCategory): Promise<void> {
-    console.log('update category', category);
-    // if (localStorage.getItem(category.id.toString()) != null) {
-    //   category.lastChangeDate = new Date();
-    //   localStorage.setItem(category.id.toString(), JSON.stringify(category));
-    //   console.log(category);
-    //   console.log(JSON.stringify(category));
-    // } else {
-    //   throw new Error(
-    //     'update() id ' + category.id.toString() + ' not found in localStorage'
-    //   );
-    // }
+    const docRef = doc(
+      this.firestoreService,
+      'Category',
+      category.id
+    ).withConverter(CategoryConverter);
+
+    try {
+      await setDoc(docRef, category, { merge: true });
+      console.log('Category updated successfully');
+    } catch (error) {
+      console.error('Error updating category:', error);
+    }
   }
 
   async get(id: string): Promise<WordsCategory | undefined> {

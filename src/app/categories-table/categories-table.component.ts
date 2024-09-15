@@ -51,15 +51,15 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
     this.myData.sort = this.sort;
   }
 
-  deleteItem(itemToRemove: WordsCategory): void {
+  async deleteItem(itemToRemove: WordsCategory): Promise<void> {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {
       data: { categoryName: itemToRemove.name },
     });
 
-    deleteDialog.afterClosed().subscribe((result) => {
+    deleteDialog.afterClosed().subscribe(async (result) => {
       try {
         if (result == true) {
-          this.mc.delete(itemToRemove.id);
+          await this.mc.delete(itemToRemove.id);
           this.refreshData();
         }
       } catch (error) {
