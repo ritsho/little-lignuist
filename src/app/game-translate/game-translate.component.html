@@ -3,12 +3,12 @@
 </div>
 <div class="game-container" *ngIf="!isLoading">
   <h1 class="title">Translate - {{ wordsCategory.name }}</h1>
-
   <div>
     <span>Category ID:</span>
     <mat-form-field>
       <input matInput value="{{ wordsCategory.id }}" disabled />
     </mat-form-field>
+    <app-game-points [points]="points"></app-game-points>
   </div>
 
   <table mat-table [dataSource]="gameWords" class="mat-elevation-z8 mid-table">

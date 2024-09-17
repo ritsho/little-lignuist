@@ -17,6 +17,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { GameResult } from '../shared/model/game-result';
+import { GameIdsEnum } from '../shared/model/game-ids';
+import { ManageGameResultsService } from '../shared/services/manage-gameresult';
+import { GamePointsComponent } from '../game-points/game-points.component';
 
 @Component({
   selector: 'app-game-translate',
@@ -39,6 +43,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatListModule,
     MatTableModule,
     MatSlideToggleModule,
+    GamePointsComponent,
   ],
 })
 export class GameTranslateComponent implements OnInit {
@@ -53,13 +58,16 @@ export class GameTranslateComponent implements OnInit {
   checkMessage: string = '';
   isShowTranslation: boolean = false;
   isLoading: boolean = false;
+  points: number = 0;
 
   constructor(
     private mc: ManageCategoriesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private mgr: ManageGameResultsService
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.points = 0;
     this.isLoading = true;
 
     const id = this.activatedRoute.snapshot.paramMap.get('categoryId');
@@ -103,5 +111,10 @@ export class GameTranslateComponent implements OnInit {
     } else {
       this.checkMessage = `You translated ${correctGuess} our of ${this.gameWords.length} words correctly, try again`;
     }
+
+    this.points = Math.floor((100 / this.gameWords.length) * correctGuess);
+    this.mgr.addGameResult(
+      new GameResult(this.wordsCategory.id, GameIdsEnum.SortWords, this.points)
+    );
   }
 }

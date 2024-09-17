@@ -11,6 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { PlayerSucceedComponent } from '../player-succeed/player-succeed.component';
 import { GamePointsComponent } from '../game-points/game-points.component';
 import { ExitButtonComponent } from '../exit-button/exit-button.component';
+import { GameIdsEnum } from '../shared/model/game-ids';
+import { GameResult } from '../shared/model/game-result';
+import { ManageGameResultsService } from '../shared/services/manage-gameresult';
 
 @Component({
   selector: 'app-sort-words-game',
@@ -46,7 +49,8 @@ export class SortWordsGameComponent implements OnInit {
     private route: ActivatedRoute,
     private mcs: ManageCategoriesService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private mgr: ManageGameResultsService
   ) {
     this.category = new WordsCategory(
       'fake',
@@ -174,18 +178,24 @@ export class SortWordsGameComponent implements OnInit {
     }
 
     if (this.isEndGame) {
-      this.router.navigate(['/sort-game-over'], {
-        state: {
-          data: {
-            category: this.category,
-            randomCategory: this.randomCategory,
-            correctGuesses: this.correctGuesses,
-            points: this.points,
-            words: this.words,
-            guesses: this.guesses,
-          },
-        },
-      });
+      this.mgr
+        .addGameResult(
+          new GameResult(this.category.id, GameIdsEnum.SortWords, this.points)
+        )
+        .then(() => {
+          this.router.navigate(['/sort-game-over'], {
+            state: {
+              data: {
+                category: this.category,
+                randomCategory: this.randomCategory,
+                correctGuesses: this.correctGuesses,
+                points: this.points,
+                words: this.words,
+                guesses: this.guesses,
+              },
+            },
+          });
+        });
     } else {
       this.dialog.open(PlayerSucceedComponent, {
         data: {
