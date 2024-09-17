@@ -85,6 +85,11 @@ export class EditCategoryComponent implements OnInit {
       return;
     }
 
+    if (this.categoryToEdit.words.length == 0) {
+      alert('Error - category must have at least one word-pair');
+      return;
+    }
+
     // if this category is NEW
     if (this.categoryToEdit.id == '') {
       // check that this category name is NOT already exist

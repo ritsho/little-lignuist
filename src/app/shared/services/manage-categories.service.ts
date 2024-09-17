@@ -27,6 +27,9 @@ export class ManageCategoriesService {
       'Category'
     ).withConverter(CategoryConverter);
 
+    // תאריך עדכון אחרון - רגע זה
+    category.lastChangeDate = new Date();
+
     await addDoc(collectionConenction, category);
   }
 
@@ -40,6 +43,9 @@ export class ManageCategoriesService {
       'Category',
       category.id
     ).withConverter(CategoryConverter);
+
+    // תאריך עדכון אחרון - רגע זה
+    category.lastChangeDate = new Date();
 
     try {
       await setDoc(docRef, category, { merge: true });

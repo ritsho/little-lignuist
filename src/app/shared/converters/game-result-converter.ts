@@ -21,6 +21,7 @@ export const GameResultConverter: FirestoreDataConverter<GameResult> = {
     options: SnapshotOptions
   ): GameResult => {
     const data = snapshot.data(options);
+    
     return {
       categoryId: data['categoryId'],
       gameId: data['gameId'],

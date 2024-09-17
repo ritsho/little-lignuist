@@ -2,9 +2,11 @@ import {
   FirestoreDataConverter,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  Timestamp,
 } from '@angular/fire/firestore';
 import { WordsCategory } from '../model/words-category';
-import { LanguageEnum, LanguageEnumConverter } from '../model/language-enum';
+import { LanguageEnumConverter } from '../model/language-enum';
+import { TranslatedWord } from '../model/translated-word';
 
 export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
   // בשמירה צריך להמיר ל JSON
@@ -18,7 +20,7 @@ export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
     return {
       name: wordsCategory.name,
       // id: wordsCategory.id,
-      lastChangeDate: wordsCategory.lastChangeDate,
+      lastChangeDate: Timestamp.fromDate(wordsCategory.lastChangeDate),
       targetLang: LanguageEnumConverter.getIntFromLang(
         wordsCategory.targetLang
       ),
@@ -34,17 +36,27 @@ export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
     options: SnapshotOptions
   ): WordsCategory => {
     const data = snapshot.data(options);
-    return {
-      id: snapshot.id,
-      name: data['name'],
-      lastChangeDate: data['lastChangeDate'].toDate(),
-      targetLang: LanguageEnumConverter.getLangFromInt(
-        <number>data['targetLang']
-      ) as LanguageEnum,
-      originLang: LanguageEnumConverter.getLangFromInt(
-        <number>data['originLang']
-      ) as LanguageEnum,
-      words: data['words'],
-    };
+    const targetLang = LanguageEnumConverter.getLangFromInt(
+      <number>data['targetLang']
+    );
+    const originLang = LanguageEnumConverter.getLangFromInt(
+      <number>data['originLang']
+    );
+    const result = new WordsCategory(
+      data['name'],
+      snapshot.id,
+      targetLang,
+      originLang,
+      []
+    );
+    result.lastChangeDate = data['lastChangeDate'].toDate();
+
+    const words = data['words'];
+    if (words) {
+      for (const word of words) {
+        result.words.push(new TranslatedWord(word['origin'], word['target']));
+      }
+    }
+    return result;
   },
 };

@@ -32,6 +32,7 @@ import { LanguageEnum } from '../shared/model/language-enum';
 export class CategoriesTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['name', 'words', 'lastChangeDate', 'actions'];
   myData = new MatTableDataSource<WordsCategory>();
+  isLoading: boolean = false;
 
   constructor(
     private mc: ManageCategoriesService,
@@ -73,7 +74,6 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
   }
 
   async newCategory(): Promise<void> {
-    console.log('adding test item');
     const newItem = new WordsCategory(
       'test',
       (this.myData.data.length + 1).toString(),
@@ -83,13 +83,20 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
     );
 
     await this.mc.add(newItem);
-    this.refreshData();
+    await this.refreshData();
   }
 
   async refreshData() {
     try {
+      this.isLoading = true;
       console.log('refreshing data...');
-      this.myData = new MatTableDataSource(await this.mc.list());
+      // sleep 5 seconds to simulate a delay in the server response
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
+      this.mc.list().then((res) => {
+        this.myData = new MatTableDataSource(res);
+        this.isLoading = false;
+      });
     } catch (error) {
       console.log(`error while refreshing data: ${error}`);
     }

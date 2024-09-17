@@ -173,21 +173,25 @@ export class MessyWordsGameComponent implements OnInit {
   }
 
   async goToGameOver(): Promise<void> {
-    this.mgr.addGameResult(
-      new GameResult(this.category.id, GameIdsEnum.MessyGame, this.points)
-    );
-
-    this.dialog.open(GamePointsComponent, { data: { points: this.points } });
-    this.router.navigate(['/messy-game-over'], {
-      state: {
-        data: {
-          categoryName: this.category.name,
-          points: this.points,
-          correctGuesses: this.correctGuesses,
-          words: this.words,
-          guesses: this.allGuesses,
-        },
-      },
-    });
+    this.mgr
+      .addGameResult(
+        new GameResult(this.category.id, GameIdsEnum.MessyGame, this.points)
+      )
+      .then(() => {
+        this.dialog.open(GamePointsComponent, {
+          data: { points: this.points },
+        });
+        this.router.navigate(['/messy-game-over'], {
+          state: {
+            data: {
+              categoryName: this.category.name,
+              points: this.points,
+              correctGuesses: this.correctGuesses,
+              words: this.words,
+              guesses: this.allGuesses,
+            },
+          },
+        });
+      });
   }
 }
