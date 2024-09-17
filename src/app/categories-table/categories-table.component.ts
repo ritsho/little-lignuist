@@ -90,8 +90,6 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
     try {
       this.isLoading = true;
       console.log('refreshing data...');
-      // sleep 5 seconds to simulate a delay in the server response
-      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       this.mc.list().then((res) => {
         this.myData = new MatTableDataSource(res);
