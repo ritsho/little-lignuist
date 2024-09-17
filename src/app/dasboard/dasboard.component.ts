@@ -2,8 +2,6 @@ import { ManageCategoriesService } from './../shared/services/manage-categories.
 import { ManageGameResultsService } from './../shared/services/manage-gameresult';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { GameIdsEnum } from '../shared/model/game-ids';
-import { GameResult } from '../shared/model/game-result';
 
 @Component({
   selector: 'app-dasboard',

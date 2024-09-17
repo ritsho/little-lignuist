@@ -127,8 +127,8 @@ export class ManageGameResultsService {
     // go back in dates, until you find a day without a game
     // count how many consecutive days there were a game
     let daysStrike = 0;
-    let currentDate = new Date();
-    while (true) {
+    const currentDate = new Date();
+    for (;;) {
       const gameOnDate = gameResults.find((gr) => {
         const gameDate = new Date(gr.date);
         return gameDate.getDate() == currentDate.getDate();

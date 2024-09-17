@@ -11,7 +11,7 @@ import { TranslatedWord } from '../model/translated-word';
 export const CategoryConverter: FirestoreDataConverter<WordsCategory> = {
   // בשמירה צריך להמיר ל JSON
   toFirestore: (wordsCategory: WordsCategory) => {
-    const wordsObj = Object.entries(wordsCategory.words).map(([_, words]) => ({
+    const wordsObj = Object.entries(wordsCategory.words).map(([, words]) => ({
       origin: words.origin,
       target: words.target,
     }));

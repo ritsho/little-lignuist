@@ -3,7 +3,6 @@ import { WordsCategory } from './../shared/model/words-category';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
