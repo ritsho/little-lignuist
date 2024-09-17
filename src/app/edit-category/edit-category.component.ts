@@ -56,10 +56,11 @@ export class EditCategoryComponent implements OnInit {
       // if we fail to get the id, we use the fallback (new category...)
       if (this.idFromRoute != null) {
         console.log(`got id: ${this.idFromRoute}`);
-        const wordsCategory = await this.mc.get(this.idFromRoute);
-        if (wordsCategory != null) {
-          this.categoryToEdit = wordsCategory;
-        }
+        this.mc.get(this.idFromRoute).then((wordsCategory) => {
+          if (wordsCategory != null) {
+            this.categoryToEdit = wordsCategory;
+          }
+        });
       }
     } catch (error) {
       console.log(
