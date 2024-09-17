@@ -1,20 +1,19 @@
 <mat-toolbar color="primary">
-    <button mat-button [matMenuTriggerFor]="menu">
-       
-        <mat-icon>menu</mat-icon>
-    </button>
-    
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="choose-game">Let's Play</button>
-      <button mat-menu-item routerLink="admin">Admin mode</button>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
 
-    </mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="dashboard">Dashboard</button>
+    <button mat-menu-item routerLink="choose-game">Let's Play</button>
+    <button mat-menu-item routerLink="admin">Admin mode</button>
+  </mat-menu>
 
-    <span class="example-spacer"></span>
-    <span class="title-as-link" routerLink="">Little Linguist</span>
-    <span class="example-spacer"></span>
-    
-    <button mat-icon-button aria-label="Example icon-button with share icon">
-        <mat-icon>person</mat-icon>
-    </button> 
+  <span class="example-spacer"></span>
+  <span class="title-as-link" routerLink="">Little Linguist</span>
+  <span class="example-spacer"></span>
+
+  <button mat-icon-button aria-label="Example icon-button with share icon">
+    <mat-icon>person</mat-icon>
+  </button>
 </mat-toolbar>

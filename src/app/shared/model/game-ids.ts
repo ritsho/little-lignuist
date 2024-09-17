@@ -3,3 +3,4 @@ export enum GameIdsEnum {
   SortWords = 2,
   TranslatedWords = 3,
 }
+

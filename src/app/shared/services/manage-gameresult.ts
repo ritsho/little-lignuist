@@ -79,4 +79,67 @@ export class ManageGameResultsService {
 
     return result;
   }
+
+  findMostPlayedCategory(gameResults: GameResult[]): string {
+    const categoryCount: { [key: string]: number } = {};
+
+    // Count occurrences of each categoryId
+    gameResults.forEach((result) => {
+      if (categoryCount[result.categoryId]) {
+        categoryCount[result.categoryId]++;
+      } else {
+        categoryCount[result.categoryId] = 1;
+      }
+    });
+
+    // Find the categoryId with the highest count
+    let mostFrequentCategoryId: string = '';
+    let maxCount = 0;
+
+    for (const categoryId in categoryCount) {
+      if (categoryCount[categoryId] > maxCount) {
+        maxCount = categoryCount[categoryId];
+        mostFrequentCategoryId = categoryId;
+      }
+    }
+
+    return mostFrequentCategoryId;
+  }
+
+  getTotalDaysOnCurrentMonth(gameResults: GameResult[]): number {
+    // count days played on last month (starting from 1st of current month)
+    // count the days
+    const today = new Date();
+    const firstDayOfCurrentMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+    const totalGamesOnCurrentMonth = gameResults.filter((gr) => {
+      const gameDate = new Date(gr.date);
+      return gameDate >= firstDayOfCurrentMonth;
+    }).length;
+
+    return totalGamesOnCurrentMonth;
+  }
+
+  getDaysStrikeSinceToday(gameResults: GameResult[]): number {
+    // go back in dates, until you find a day without a game
+    // count how many consecutive days there were a game
+    let daysStrike = 0;
+    let currentDate = new Date();
+    while (true) {
+      const gameOnDate = gameResults.find((gr) => {
+        const gameDate = new Date(gr.date);
+        return gameDate.getDate() == currentDate.getDate();
+      });
+      if (gameOnDate) {
+        daysStrike++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return daysStrike;
+  }
 }

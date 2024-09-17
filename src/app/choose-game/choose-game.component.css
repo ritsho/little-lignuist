@@ -1,5 +1,5 @@
 .container {
-  display:flex; /* השתמש ב-flex כדי לסדר את הכרטיסים בשורה */
+  display: flex; /* השתמש ב-flex כדי לסדר את הכרטיסים בשורה */
   align-items: center; /* מרכז את הכרטיסים אנכית */
   justify-content: center; /* מרכז את הכרטיסים אופקית */
   flex-wrap: wrap; /* עוטף את הכרטיסים לשורות נוספות אם יש יותר מדי לרוחב אחד */
@@ -11,9 +11,8 @@ mat-card.card-container {
   height: 150px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(233, 202, 202, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  margin: 10px;
   text-align: center;
   font-size: 15px;
 }
@@ -22,9 +21,11 @@ mat-card.card-container:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
+.mat-mdc-card-header {
+  display: block;
+}
 mat-card-title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
 }
