@@ -64,7 +64,7 @@ export class ManageCategoriesService {
 
     if (docSnap.exists()) {
       const category = docSnap.data() as WordsCategory;
-      console.log('Category data:', category);
+      //console.log('Category data:', category);
       return category;
     } else {
       console.log('No such Category!');
@@ -77,6 +77,9 @@ export class ManageCategoriesService {
       this.firestoreService,
       'Category'
     ).withConverter(CategoryConverter);
+
+    // sleep 1 seconds to simulate a delay in the server response
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const querySnapshot = await getDocs(collectionConenction);
     const result: WordsCategory[] = [];

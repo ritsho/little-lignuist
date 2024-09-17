@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="isLoading">
+    <div class="loader"></div>
+</div>
+<div *ngIf="!isLoading">
     <div class="game-title">
         <div class="column1">
             <app-game-points [points]="points"></app-game-points>

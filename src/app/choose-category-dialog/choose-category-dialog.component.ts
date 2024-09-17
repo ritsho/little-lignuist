@@ -27,8 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ChooseCategoryDialogComponent implements OnInit {
   public categories: WordsCategory[] = [];
-
   public selectedCategory: WordsCategory | undefined;
+  public isLoading: boolean = false;
 
   constructor(
     private mcs: ManageCategoriesService,
@@ -38,8 +38,13 @@ export class ChooseCategoryDialogComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+
     // get list of all categories
-    this.categories = await this.mcs.list();
+    this.mcs.list().then((categories) => {
+      this.categories = categories;
+      this.isLoading = false;
+    });
   }
 
   playGame() {

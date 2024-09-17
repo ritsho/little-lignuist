@@ -33,6 +33,7 @@ export class SortWordsGameComponent implements OnInit {
   public currentWordIndex: number = 0;
   public playerProgress: number = 0;
   public points: number = 0;
+  public isLoading: boolean = false;
 
   private categoryIdFromRoute: string | null;
   private isEndGame: boolean = false;
@@ -64,35 +65,42 @@ export class SortWordsGameComponent implements OnInit {
 
     this.categoryIdFromRoute = this.route.snapshot.paramMap.get('categoryId');
   }
+
   async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+
     if (this.categoryIdFromRoute != null) {
-      const tempCategory = await this.mcs.get(this.categoryIdFromRoute);
-      if (!tempCategory) {
-        console.log('invalid category id: ', this.categoryIdFromRoute);
-        return;
-      }
-      this.category = tempCategory;
+      this.mcs.get(this.categoryIdFromRoute).then((tempCategory) => {
+        if (!tempCategory) {
+          console.log('invalid category id: ', this.categoryIdFromRoute);
+          return;
+        }
+        this.category = tempCategory;
 
-      const allCategories = await this.mcs.list();
-      this.randomCategory = this.getRandomCateogory(
-        this.category,
-        allCategories
-      );
+        this.mcs.list().then((allCategories) => {
+          this.randomCategory = this.getRandomCateogory(
+            this.category,
+            allCategories
+          );
 
-      this.words = this.getWordsFromCategory(this.category, 3);
-      const randomWordsFromOther = this.getWordsFromCategory(
-        this.randomCategory,
-        3
-      );
+          this.words = this.getWordsFromCategory(this.category, 3);
+          const randomWordsFromOther = this.getWordsFromCategory(
+            this.randomCategory,
+            3
+          );
 
-      this.words = this.words.concat(randomWordsFromOther);
-      this.words = [...this.words].sort(() => Math.random() - 0.5);
-      console.log(this.words);
+          this.words = this.words.concat(randomWordsFromOther);
+          this.words = [...this.words].sort(() => Math.random() - 0.5);
+          // console.log(this.words);
 
-      // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
-      this.pointsPerCorrect = Math.floor(100 / this.words.length);
+          // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
+          this.pointsPerCorrect = Math.floor(100 / this.words.length);
 
-      this.showNextWord();
+          this.showNextWord();
+
+          this.isLoading = false;
+        });
+      });
     }
   }
 

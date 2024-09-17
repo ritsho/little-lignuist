@@ -1,31 +1,36 @@
 <h2>{{ selectedGameProfile.name }}</h2>
 <h3 mat-dialog-title class="center-me">Choose Category To Play</h3>
 
-<mat-form-field>
-  <mat-label>Choose category to play</mat-label>
-  <mat-select [(value)]="selectedCategory" required>
-    <mat-option *ngFor="let category of categories" [value]="category">
-      {{ category.name }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<div *ngIf="this.selectedCategory !== undefined">
-  <div class="center-me">{{ selectedCategory.words.length }} words</div>
-
-  <div class="center-me">
-    Last update: {{ selectedCategory.lastChangeDate | date : "shortDate" }}
-  </div>
+<div *ngIf="isLoading">
+  <div class="loader"></div>
 </div>
+<div *ngIf="!isLoading">
+  <mat-form-field>
+    <mat-label>Choose category to play</mat-label>
+    <mat-select [(value)]="selectedCategory" required>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<div mat-dialog-actions class="center-me">
-  <button
-    mat-flat-button
-    color="primary"
-    [mat-dialog-close]="true"
-    [disabled]="!selectedCategory"
-    (click)="playGame()"
-  >
-    Play
-  </button>
+  <div *ngIf="this.selectedCategory !== undefined">
+    <div class="center-me">{{ selectedCategory.words.length }} words</div>
+
+    <div class="center-me">
+      Last update: {{ selectedCategory.lastChangeDate | date : "shortDate" }}
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="center-me">
+    <button
+      mat-flat-button
+      color="primary"
+      [mat-dialog-close]="true"
+      [disabled]="!selectedCategory"
+      (click)="playGame()"
+    >
+      Play
+    </button>
+  </div>
 </div>

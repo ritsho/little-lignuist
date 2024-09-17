@@ -1,4 +1,7 @@
-<div class="game-container">
+<div *ngIf="isLoading">
+  <div class="loader"></div>
+</div>
+<div class="game-container" *ngIf="!isLoading">
   <h1 class="title">Translate - {{ wordsCategory.name }}</h1>
 
   <div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameProfile } from '../model/GameProfile';
+import { GameIdsEnum } from '../model/game-ids';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +10,21 @@ export class GameInfoService {
 
   constructor() {
     const game1 = new GameProfile(
-      '1',
+      GameIdsEnum.SortWords.toString(),
       'Sort Words',
       'Player need to sort words',
       'sort-words-game',
       'assets/image/sort-words.jpeg'
     );
     const game2 = new GameProfile(
-      '2',
+      GameIdsEnum.MessyGame.toString(),
       'Messy Words',
       'Player need to fix messy words',
       'messy-words-game',
       'assets/image/messy-words.jpeg'
     );
     const game3 = new GameProfile(
-      '3',
+      GameIdsEnum.TranslatedWords.toString(),
       'Translate',
       'Player need to translate words',
       'game-translate',

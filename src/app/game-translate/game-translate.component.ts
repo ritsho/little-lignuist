@@ -52,6 +52,7 @@ export class GameTranslateComponent implements OnInit {
   isCheckButtonWasClicked: boolean = false;
   checkMessage: string = '';
   isShowTranslation: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private mc: ManageCategoriesService,
@@ -59,20 +60,24 @@ export class GameTranslateComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+
     const id = this.activatedRoute.snapshot.paramMap.get('categoryId');
     if (id != null) {
-      const tempCategory = await this.mc.get(id);
-      if (!tempCategory) {
-        console.log('invalid category id: ', id);
-        return;
-      }
-      this.wordsCategory = tempCategory;
+      this.mc.get(id).then((tempCategory) => {
+        if (!tempCategory) {
+          console.log('invalid category id: ', id);
+          return;
+        }
+        this.wordsCategory = tempCategory;
 
-      //copy all words to the new array
-      this.wordsCategory.words.forEach((translatedWord) => {
-        this.gameWords.push(
-          new GameWords(translatedWord.origin, translatedWord.target)
-        );
+        //copy all words to the new array
+        this.wordsCategory.words.forEach((translatedWord) => {
+          this.gameWords.push(
+            new GameWords(translatedWord.origin, translatedWord.target)
+          );
+        });
+        this.isLoading = false;
       });
     }
   }

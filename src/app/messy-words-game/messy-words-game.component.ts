@@ -55,14 +55,14 @@ export class MessyWordsGameComponent implements OnInit {
   isLastGuessCorrect: boolean = false;
   pointsPerCorrect: number = 0;
   correctGuesses: number = 0;
+  isLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private mcs: ManageCategoriesService,
     private mgr: ManageGameResultsService,
     private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) {
     this.categoryIdFromRoute = this.route.snapshot.paramMap.get('categoryId');
 
@@ -76,26 +76,34 @@ export class MessyWordsGameComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+
+    // sleep 1 sec
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     if (!this.categoryIdFromRoute) {
       console.log('invalid category id selected:', this.categoryIdFromRoute);
       return;
     }
-    const tempCateogry = await this.mcs.get(this.categoryIdFromRoute);
-    if (!tempCateogry) {
-      console.log(
-        'category id is valid, but not found in firebase:',
-        this.categoryIdFromRoute
-      );
-      return;
-    }
-    this.category = tempCateogry;
-    this.words = [...this.category.words].sort(() => Math.random() - 0.5);
 
-    // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
-    this.pointsPerCorrect = Math.floor(100 / this.words.length);
+    this.mcs.get(this.categoryIdFromRoute).then((tempCateogry) => {
+      if (!tempCateogry) {
+        console.log(
+          'category id is valid, but not found in firebase:',
+          this.categoryIdFromRoute
+        );
+        return;
+      }
+      this.category = tempCateogry;
+      this.words = [...this.category.words].sort(() => Math.random() - 0.5);
 
-    // נערבב את המילה הראשונה
-    this.mixCurrentWord();
+      // כל ניחוש נכון הוא 100 לחלק לכמות המילים שיש בקטגוריה
+      this.pointsPerCorrect = Math.floor(100 / this.words.length);
+
+      // נערבב את המילה הראשונה
+      this.mixCurrentWord();
+      this.isLoading = false;
+    });
   }
 
   resetGuess() {
@@ -178,9 +186,6 @@ export class MessyWordsGameComponent implements OnInit {
         new GameResult(this.category.id, GameIdsEnum.MessyGame, this.points)
       )
       .then(() => {
-        this.dialog.open(GamePointsComponent, {
-          data: { points: this.points },
-        });
         this.router.navigate(['/messy-game-over'], {
           state: {
             data: {

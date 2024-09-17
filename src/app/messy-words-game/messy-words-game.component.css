@@ -1,8 +1,10 @@
+@import "../../styles/shared-style.css";
+
 :host {
   display: block;
 }
 
-.messy-game-container{
+.messy-game-container {
   width: 100vw;
   overflow-x: hidden;
 }
@@ -19,12 +21,11 @@
   margin-left: auto;
 }
 
-.column1{
+.column1 {
   margin-right: auto;
   display: block;
   font-size: large;
 }
-
 
 .progress-container {
   display: flex;
@@ -32,11 +33,11 @@
   min-width: 450px;
   width: 100%;
   padding-left: 10px;
-  font-size:large;
+  font-size: large;
   border-radius: 50px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
- 
+
 form {
   display: flex;
   justify-content: center;
@@ -51,8 +52,7 @@ form {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-
-.bigletters{
+.bigletters {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,16 +61,15 @@ form {
   padding-bottom: 15px;
 }
 
-.largeletters{
+.largeletters {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: large;
   padding-bottom: 25px;
-
 }
 
-.user-guess{
+.user-guess {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,17 +85,16 @@ form {
   padding-bottom: 25px;
 }
 
-.progressleft{
-  font-size:large;
+.progressleft {
+  font-size: large;
   border-radius: 50px;
- 
 }
 
 .nice-border {
-  border: 2px solid #9255e7; 
-  border-radius: 4px; 
-  padding: 4px 8px; 
-  background-color: #f2f2f2; 
-  color: #333; 
-  font-weight: bold; 
+  border: 2px solid #9255e7;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
 }
