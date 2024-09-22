@@ -4,6 +4,7 @@
   justify-content: center; /* מרכז את הכרטיסים אופקית */
   flex-wrap: wrap; /* עוטף את הכרטיסים לשורות נוספות אם יש יותר מדי לרוחב אחד */
   gap: 10px; /* מוסיף רווח בין הכרטיסים */
+  margin-top: 200px;
 }
 
 mat-card.card-container {
@@ -15,6 +16,7 @@ mat-card.card-container {
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
   font-size: 15px;
+  margin: 50px;
 }
 
 mat-card.card-container:hover {

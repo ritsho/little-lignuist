@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'gamechoice', component: GameChoiceComponent },
   // { path: 'newgame/:id', component: GameTranslateComponent },
   { path: 'help', component: HelpComponent },
-  { path: '', component: ChooseGameComponent },
+  { path: '', component: DasboardComponent },
   { path: 'messy-words-game/:categoryId', component: MessyWordsGameComponent },
   { path: 'sort-words-game/:categoryId', component: SortWordsGameComponent },
   { path: 'choose-game', component: ChooseGameComponent },
@@ -27,5 +27,4 @@ export const routes: Routes = [
   { path: 'game-translate/:categoryId', component: GameTranslateComponent },
   { path: 'messy-game-over', component: MessyGameOverComponent },
   { path: 'sort-game-over', component: SortGameOverComponent },
-  { path: 'dashboard', component: DasboardComponent },
 ];

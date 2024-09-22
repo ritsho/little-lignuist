@@ -12,27 +12,123 @@ body {
 .container {
   text-align: center;
 }
+
 h1 {
-  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #333;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 3px solid purple;
+  position: relative;
 }
+
+h1::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background-color: purple;
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
 }
+
 .box {
   background-color: white;
-  padding: 20px;
+  padding: 20px 10px;
   border: 1px solid #ccc;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
 }
+
+.box:hover {
+  transform: scale(1.05);
+  border: 3px solid #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .box h2 {
   font-size: 2em;
   margin: 0;
+  text-align: center;
 }
+
 .box p {
   margin: 10px 0 0;
+  text-align: center;
+}
+
+.challenge-box {
+  background-color: #f8f9fa;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.challenge-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.challenge-complete,
+.challenge-progress {
+  text-align: center;
+  padding: 20px;
+}
+
+.challenge-complete h2 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.challenge-complete p {
+  color: #495057;
+  margin-bottom: 15px;
+}
+
+.challenge-complete i {
+  font-size: 3em;
+  color: #ffc107;
+}
+
+.challenge-progress h2 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.challenge-progress p {
+  color: #495057;
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  background-color: #007bff;
+  height: 100%;
+  transition: width 0.5s ease;
 }

@@ -40,10 +40,23 @@
     <div class="box">
       <h2>{{ gamesThisMonth }}</h2>
       <p>Games this month</p>
-      <p *ngIf="leftToCompleteChallange <= 0">YOU COMPLETED THE CHALLANGE!</p>
-      <p *ngIf="leftToCompleteChallange > 0">
-        {{ leftToCompleteChallange }} more to complete Challenge!
-      </p>
+    </div>
+    <div class="box challenge-box">
+      <div *ngIf="leftToCompleteChallange <= 0" class="challenge-complete">
+        <h2>Challenge Complete!</h2>
+        <p>Congratulations! You've achieved your goal.</p>
+        <i class="fas fa-trophy"></i>
+      </div>
+      <div *ngIf="leftToCompleteChallange > 0" class="challenge-progress">
+        <h2>Challenge Progress</h2>
+        <p>{{ leftToCompleteChallange }} more to complete the challenge!</p>
+        <div class="progress-bar">
+          <div
+            class="progress"
+            [style.width]="getProgressPercentage() + '%'"
+          ></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

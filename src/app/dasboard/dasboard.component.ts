@@ -81,4 +81,11 @@ export class DasboardComponent implements OnInit {
 
     this.isLoading = false;
   }
+
+  getProgressPercentage(): number {
+    // Assuming totalChallenge is the total number of games needed to complete the challenge
+    const totalChallenge = 100; // Replace with your actual total
+    const completed = totalChallenge - this.leftToCompleteChallange;
+    return (completed / totalChallenge) * 100;
+  }
 }
