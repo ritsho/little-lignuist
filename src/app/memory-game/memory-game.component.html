@@ -3,13 +3,17 @@
   <div class="card-container" *ngFor="let card of words">
     <div
       class="card"
+      role="presentation"
       [class.flipped]="card.isFlipped"
       [class.matched]="card.isMatched"
       (click)="flipCard(card)"
+      (keyup)="flipCard(card)"
+      tabIndex="{0}"
     >
       <div class="card-front">
         <img
           width="45px"
+          [alt]="card.isTarget ? 'Hebrew' : 'English'"
           [src]="
             card.isTarget
               ? 'assets/image/israel.png'

@@ -1,4 +1,3 @@
-import { TranslatedWord } from './../shared/model/translated-word';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemoryCard } from '../shared/model/memory-card';
