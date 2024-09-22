@@ -11,20 +11,26 @@ import { SortWordsGameComponent } from './sort-words-game/sort-words-game.compon
 import { ChooseGameComponent } from './choose-game/choose-game.component';
 import { GameHelpComponent } from './game-help/game-help.component';
 import { SortGameOverComponent } from './sort-game-over/sort-game-over.component';
+import { MemoryGameComponent } from './memory-game/memory-game.component';
+import { MemoryGameOverComponent } from './memory-game-over/memory-game-over.component';
 
 export const routes: Routes = [
   { path: 'admin', component: CategoriesTableComponent },
   { path: 'edit-category/:categoryId', component: EditCategoryComponent },
   { path: 'newcategory', component: EditCategoryComponent },
   { path: 'gamechoice', component: GameChoiceComponent },
-  // { path: 'newgame/:id', component: GameTranslateComponent },
   { path: 'help', component: HelpComponent },
   { path: '', component: DasboardComponent },
+
   { path: 'messy-words-game/:categoryId', component: MessyWordsGameComponent },
   { path: 'sort-words-game/:categoryId', component: SortWordsGameComponent },
+  { path: 'game-translate/:categoryId', component: GameTranslateComponent },
+  { path: 'memory-game/:categoryId', component: MemoryGameComponent },
+
   { path: 'choose-game', component: ChooseGameComponent },
   { path: 'game-help', component: GameHelpComponent },
-  { path: 'game-translate/:categoryId', component: GameTranslateComponent },
+
   { path: 'messy-game-over', component: MessyGameOverComponent },
   { path: 'sort-game-over', component: SortGameOverComponent },
+  { path: 'memory-game-over', component: MemoryGameOverComponent },
 ];

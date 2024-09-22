@@ -1,0 +1,23 @@
+<app-game-points [points]="points"></app-game-points>
+<div class="memory-game">
+  <div class="card-container" *ngFor="let card of words">
+    <div
+      class="card"
+      [class.flipped]="card.isFlipped"
+      [class.matched]="card.isMatched"
+      (click)="flipCard(card)"
+    >
+      <div class="card-front">
+        <img
+          width="45px"
+          [src]="
+            card.isTarget
+              ? 'assets/image/israel.png'
+              : 'assets/image/united-states.png'
+          "
+        />
+      </div>
+      <div class="card-back">{{ card.word }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="game-over-container">
+  <h1 class="game-over-title">Memory game is Over!</h1>
+
+  <div class="score-container">
+    <h2>Points</h2>
+    <p class="score">{{ dataFromGame.points }}</p>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-item">
+      <h3>Tries</h3>
+      <p>{{ dataFromGame.tries }} / {{ dataFromGame.words.length / 2 }}</p>
+    </div>
+  </div>
+</div>

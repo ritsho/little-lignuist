@@ -47,16 +47,9 @@
     <ng-container matColumnDef="is-correct-col">
       <th mat-header-cell *matHeaderCellDef class="center-text"></th>
       <td mat-cell *matCellDef="let gameWord" class="center-text">
-        <div class="{{ isCheckButtonWasClicked ? '' : 'hide-me' }}">
-          <img
-            height="50px"
-            [alt]="gameWord.isCorrect"
-            [src]="
-              gameWord.isCorrect
-                ? 'assets/partying-face-joypixels.gif'
-                : 'assets/image/slide_3.jpg'
-            "
-          />
+        <div class="{{ isCheckButtonWasClicked ? '' : 'hide-me' }} large-emoji">
+          <p *ngIf="gameWord.isCorrect">🥳</p>
+          <p *ngIf="!gameWord.isCorrect">😢</p>
         </div>
       </td>
     </ng-container>

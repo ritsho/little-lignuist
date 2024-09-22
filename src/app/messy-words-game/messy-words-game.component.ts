@@ -77,8 +77,8 @@ export class MessyWordsGameComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    // sleep 1 sec
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // sleep a little to show the loading bar
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (!this.categoryIdFromRoute) {
       console.log('invalid category id selected:', this.categoryIdFromRoute);

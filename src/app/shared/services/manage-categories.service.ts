@@ -78,8 +78,8 @@ export class ManageCategoriesService {
       'Category'
     ).withConverter(CategoryConverter);
 
-    // sleep 1 seconds to simulate a delay in the server response
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // sleep a little to show the loading bar
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     const querySnapshot = await getDocs(collectionConenction);
     const result: WordsCategory[] = [];

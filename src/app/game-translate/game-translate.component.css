@@ -30,3 +30,17 @@
 .hide-me {
   visibility: hidden;
 }
+
+.large-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  margin: 0.2em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

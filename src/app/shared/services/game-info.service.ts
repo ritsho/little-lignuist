@@ -30,10 +30,18 @@ export class GameInfoService {
       'game-translate',
       'assets/image/translate.jpeg'
     );
+    const game4 = new GameProfile(
+      GameIdsEnum.MemoryGame.toString(),
+      'Memory Game',
+      'Player need to find match translation',
+      'memory-game',
+      'assets/image/memory-game.png'
+    );
 
     this.games.push(game1);
     this.games.push(game2);
     this.games.push(game3);
+    this.games.push(game4);
   }
 
   getGames() {
